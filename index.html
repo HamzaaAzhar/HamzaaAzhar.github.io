@@ -130,7 +130,25 @@
   }
 
   .hero {
+    display: flex;
+    align-items: flex-start;
+    gap: 26px;
     padding: 44px 0 40px;
+  }
+
+  .portrait {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid var(--rule-strong);
+    filter: grayscale(0.25);
+  }
+
+  @media (max-width: 560px) {
+    .hero { gap: 18px; }
+    .portrait { width: 68px; height: 68px; }
   }
 
   .hero h1 {
@@ -239,6 +257,21 @@
 
   .entry .links a:hover { color: var(--brass-deep); }
 
+  .media {
+    margin: 14px 0 4px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    background: var(--paper-2);
+  }
+
+  .media video,
+  .media img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .grid2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -325,16 +358,18 @@
     <nav class="tabs" role="tablist" aria-label="Site sections">
       <button role="tab" id="tab-btn-personal" aria-controls="tab-personal" aria-selected="true" data-tab="personal">Personal</button>
       <button role="tab" id="tab-btn-work" aria-controls="tab-work" aria-selected="false" data-tab="work">Work</button>
-      <button role="tab" id="tab-btn-ventures" aria-controls="tab-ventures" aria-selected="false" data-tab="ventures">Ventures</button>
       <button role="tab" id="tab-btn-projects" aria-controls="tab-projects" aria-selected="false" data-tab="projects">Projects</button>
       <button role="tab" id="tab-btn-contact" aria-controls="tab-contact" aria-selected="false" data-tab="contact">Contact</button>
     </nav>
   </header>
 
   <div class="hero">
-    <h1>Hamza</h1>
-    <p class="role">Investments &amp; strategy at a Pakistani industrial group, with a habit of building the software that operations actually need.</p>
-    <p class="loc">LAHORE, PAKISTAN</p>
+    <img class="portrait" src="assets/me.jpg" alt="Hamza Azhar" width="96" height="96">
+    <div>
+      <h1>Hamza</h1>
+      <p class="role">Investments &amp; strategy at a Pakistani industrial group, with a habit of building the software that operations actually need.</p>
+      <p class="loc">LAHORE, PAKISTAN</p>
+    </div>
   </div>
 
   <!-- PERSONAL -->
@@ -410,47 +445,6 @@
     </div>
   </section>
 
-  <!-- VENTURES -->
-  <section class="panel" id="tab-ventures" role="tabpanel" aria-labelledby="tab-btn-ventures">
-    <p class="lede">Alongside the day job, I operate and have built a small number of ventures — some running, one dormant.</p>
-
-    <div class="entry">
-      <div class="when">RUNNING</div>
-      <div>
-        <h3>SkyPack</h3>
-        <p>A corrugated carton manufacturing business I run hands-on — from production to the systems that keep it running, including a custom-built ERP and CRM.</p>
-        <span class="tag">MANUFACTURING · OPERATIONS · SYSTEMS</span>
-      </div>
-    </div>
-
-    <div class="entry">
-      <div class="when">BUILDING</div>
-      <div>
-        <h3>SOP Fertiliser Import</h3>
-        <p>A personal-capacity Sulphate of Potash import and private-label business in Pakistan, kept deliberately lean — a single container in year one, scaling toward five in year two.</p>
-        <span class="tag">IMPORT · PRIVATE LABEL · AGRI INPUTS</span>
-      </div>
-    </div>
-
-    <div class="entry">
-      <div class="when">BUILDING</div>
-      <div>
-        <h3>Commander Grinding Mills — sales agency</h3>
-        <p>A commission-based sales agency representing a GCC grinding mill manufacturer in Pakistan, built on the buyer network from SkyPack — with buyer mapping, competitive analysis, and a sales execution pack in place.</p>
-        <span class="tag">B2B SALES · AGENCY · MANUFACTURING</span>
-      </div>
-    </div>
-
-    <div class="entry">
-      <div class="when">DORMANT</div>
-      <div>
-        <h3>Tader</h3>
-        <p>A premium men's leather footwear brand I co-founded. Currently paused, with the brand and inventory built out from prior seasons.</p>
-        <span class="tag">CONSUMER · FOOTWEAR · CO-FOUNDED</span>
-      </div>
-    </div>
-  </section>
-
   <!-- PROJECTS -->
   <section class="panel" id="tab-projects" role="tabpanel" aria-labelledby="tab-btn-projects">
     <p class="lede">Software I've built to solve problems I actually had — usually FastAPI or Flask on the back end, React or a lean server-rendered front end, and Claude as a build partner throughout.</p>
@@ -481,8 +475,13 @@
       <div class="when">DATA</div>
       <div>
         <h3>Scraper Intelligence Engine</h3>
-        <p>A market intelligence scraping &amp; analysis engine that turns raw web data into structured insight.</p>
+        <p>A cross-platform scraper that simultaneously fetches and normalises product data across Pakistan's top e-commerce marketplaces — pricing intelligence, supplier quality scores, brand dominance, and arbitrage opportunities in one pass.</p>
         <span class="tag">PYTHON · SCRAPING · AUTOMATION</span>
+        <div class="media">
+          <video controls muted playsinline preload="metadata" poster="assets/scraper-cover.jpg">
+            <source src="assets/scraper-demo.mp4" type="video/mp4">
+          </video>
+        </div>
         <div class="links">
           <a href="https://scraperintelligencesystem.onrender.com" target="_blank" rel="noopener">Live demo →</a>
           <a href="https://github.com/HamzaaAzhar/Market-Intelligence-Engine" target="_blank" rel="noopener">Code</a>
@@ -561,7 +560,7 @@
     }
 
     var initial = (location.hash || '').replace('#', '');
-    var valid = ['personal', 'work', 'ventures', 'projects', 'contact'];
+    var valid = ['personal', 'work', 'projects', 'contact'];
     if (valid.indexOf(initial) !== -1) {
       activate(initial);
     }
