@@ -3,50 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hamza Azhar</title>
+<title>Mohammad Hamza Azhar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #16202B;
-    --ink-soft: #3B4652;
-    --paper: #EDE8DC;
-    --paper-2: #E1D9C7;
-    --brass: #8C6A2E;
-    --brass-deep: #6E5320;
-    --slate: #47586B;
-    --rule: rgba(22, 32, 43, 0.16);
-    --rule-strong: rgba(22, 32, 43, 0.32);
+    --ink: #14151A;
+    --ink-soft: #565A66;
+    --paper: #FFFFFF;
+    --paper-2: #F5F5F7;
+    --brass: #4F46E5;
+    --brass-deep: #3730A3;
+    --accent-2: #F5A623;
+    --slate: #6B7280;
+    --rule: rgba(20, 21, 26, 0.10);
+    --rule-strong: rgba(20, 21, 26, 0.22);
     --serif: "Fraunces", Georgia, "Times New Roman", serif;
-    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ink: #ECE7DC;
-      --ink-soft: #C7BFAE;
-      --paper: #131D28;
-      --paper-2: #1B2733;
-      --brass: #C9A15D;
-      --brass-deep: #E0B978;
-      --slate: #90A7BE;
-      --rule: rgba(236, 231, 220, 0.16);
-      --rule-strong: rgba(236, 231, 220, 0.32);
+      --ink: #F2F2F5;
+      --ink-soft: #A6ABB8;
+      --paper: #0B0B0F;
+      --paper-2: #141419;
+      --brass: #818CF8;
+      --brass-deep: #A5B4FC;
+      --accent-2: #FBBF24;
+      --slate: #9CA3AF;
+      --rule: rgba(242, 242, 245, 0.12);
+      --rule-strong: rgba(242, 242, 245, 0.24);
     }
   }
 
   :root[data-theme="dark"] {
-    --ink: #ECE7DC;
-    --ink-soft: #C7BFAE;
-    --paper: #131D28;
-    --paper-2: #1B2733;
-    --brass: #C9A15D;
-    --brass-deep: #E0B978;
-    --slate: #90A7BE;
-    --rule: rgba(236, 231, 220, 0.16);
-    --rule-strong: rgba(236, 231, 220, 0.32);
+    --ink: #F2F2F5;
+    --ink-soft: #A6ABB8;
+    --paper: #0B0B0F;
+    --paper-2: #141419;
+    --brass: #818CF8;
+    --brass-deep: #A5B4FC;
+    --accent-2: #FBBF24;
+    --slate: #9CA3AF;
+    --rule: rgba(242, 242, 245, 0.12);
+    --rule-strong: rgba(242, 242, 245, 0.24);
   }
 
   * { box-sizing: border-box; }
@@ -78,8 +81,8 @@
 
   .mark {
     font-family: var(--serif);
-    font-weight: 600;
-    font-size: 22px;
+    font-weight: 500;
+    font-size: 16.5px;
     letter-spacing: 0.01em;
     color: var(--ink);
     text-decoration: none;
@@ -130,10 +133,85 @@
   }
 
   .hero {
+    position: relative;
     display: flex;
     align-items: flex-start;
     gap: 26px;
     padding: 44px 0 40px;
+    overflow: hidden;
+  }
+
+  .blob-field {
+    position: absolute;
+    inset: -80px -60px auto -60px;
+    height: 340px;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(38px);
+    opacity: 0.55;
+  }
+
+  .blob-field span {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: normal;
+  }
+
+  :root:not([data-theme="light"]) .blob-field,
+  :root[data-theme="dark"] .blob-field {
+    opacity: 0.35;
+    mix-blend-mode: screen;
+  }
+
+  .blob-field span:nth-child(1) {
+    width: 260px;
+    height: 260px;
+    left: 8%;
+    top: 6%;
+    background: var(--brass);
+    animation: float-a 22s ease-in-out infinite;
+  }
+
+  .blob-field span:nth-child(2) {
+    width: 210px;
+    height: 210px;
+    left: 46%;
+    top: -6%;
+    background: var(--accent-2);
+    animation: float-b 26s ease-in-out infinite;
+  }
+
+  .blob-field span:nth-child(3) {
+    width: 180px;
+    height: 180px;
+    left: 70%;
+    top: 18%;
+    background: var(--brass-deep);
+    animation: float-c 19s ease-in-out infinite;
+  }
+
+  @keyframes float-a {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, 20px) scale(1.08); }
+  }
+
+  @keyframes float-b {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-24px, 26px) scale(0.94); }
+  }
+
+  @keyframes float-c {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-20px, -18px) scale(1.1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blob-field span { animation: none; }
+  }
+
+  .hero > * {
+    position: relative;
+    z-index: 1;
   }
 
   .portrait {
@@ -153,9 +231,9 @@
 
   .hero h1 {
     font-family: var(--serif);
-    font-weight: 600;
-    font-size: clamp(38px, 7vw, 58px);
-    line-height: 1.05;
+    font-weight: 500;
+    font-size: clamp(28px, 4.6vw, 42px);
+    line-height: 1.1;
     margin: 0 0 14px;
     letter-spacing: -0.01em;
   }
@@ -354,7 +432,7 @@
 <div class="wrap">
 
   <header class="top">
-    <a class="mark" href="#" data-tab-link="personal">Hamza</a>
+    <a class="mark" href="#" data-tab-link="personal">Mohammad Hamza Azhar</a>
     <nav class="tabs" role="tablist" aria-label="Site sections">
       <button role="tab" id="tab-btn-personal" aria-controls="tab-personal" aria-selected="true" data-tab="personal">Personal</button>
       <button role="tab" id="tab-btn-work" aria-controls="tab-work" aria-selected="false" data-tab="work">Work</button>
@@ -364,9 +442,10 @@
   </header>
 
   <div class="hero">
-    <img class="portrait" src="assets/me.jpg" alt="Hamza Azhar" width="96" height="96">
+    <div class="blob-field" aria-hidden="true"><span></span><span></span><span></span></div>
+    <img class="portrait" src="assets/me.jpg" alt="Mohammad Hamza Azhar" width="96" height="96">
     <div>
-      <h1>Hamza</h1>
+      <h1>Mohammad Hamza Azhar</h1>
       <p class="role">Investments &amp; strategy at a Pakistani industrial group, with a habit of building the software that operations actually need.</p>
       <p class="loc">LAHORE, PAKISTAN</p>
     </div>
@@ -528,7 +607,7 @@
   </section>
 
   <footer>
-    <span>Hamza — Lahore, Pakistan</span>
+    <span>Mohammad Hamza Azhar — Lahore, Pakistan</span>
     <span>Investments &amp; Strategy · Uqab Corporation</span>
   </footer>
 
