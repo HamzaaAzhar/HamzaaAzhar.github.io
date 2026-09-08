@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamza Azhar</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">Hamza Azhar</div>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="portfolio">Portfolio</button>
+      <button class="tab-btn" data-tab="personal">Personal</button>
+      <button class="tab-btn" data-tab="other">Other</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ── PORTFOLIO ─────────────────────────────────────────────── -->
+  <section id="portfolio" class="tab-panel active">
+    <div class="hero">
+      <h1>Building AI-powered products</h1>
+      <p>Software engineer / builder — trading tools, media automation, and AI systems.</p>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <h3>InvestorLens</h3>
+        <p>Live PSX stock &amp; gold market dashboard with Monte Carlo return projections and an AI portfolio assistant.</p>
+        <div class="tags"><span>Flask</span><span>SQLAlchemy</span><span>JWT</span></div>
+        <div class="card-links">
+          <a href="https://investor-lens.onrender.com" target="_blank" rel="noopener">Live demo →</a>
+          <a href="https://github.com/HamzaaAzhar/InvestorLens" target="_blank" rel="noopener">Code</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Scraper Intelligence Engine</h3>
+        <p>Market intelligence scraping &amp; analysis engine that turns raw web data into structured insight.</p>
+        <div class="tags"><span>Python</span><span>Scraping</span><span>Automation</span></div>
+        <div class="card-links">
+          <a href="https://scraperintelligencesystem.onrender.com" target="_blank" rel="noopener">Live demo →</a>
+          <a href="https://github.com/HamzaaAzhar/Market-Intelligence-Engine" target="_blank" rel="noopener">Code</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>AI Verdict Media Engine</h3>
+        <p>Automated, AI-generated news-reel video production pipeline — FastAPI backend, React frontend.</p>
+        <div class="tags"><span>FastAPI</span><span>React</span><span>FFmpeg</span></div>
+        <div class="card-links">
+          <a href="https://ai-verdict-media-engine.onrender.com" target="_blank" rel="noopener">Live demo →</a>
+          <a href="https://github.com/HamzaaAzhar/ai-verdict-media-engine" target="_blank" rel="noopener">Code</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ── PERSONAL ──────────────────────────────────────────────── -->
+  <section id="personal" class="tab-panel">
+    <div class="hero small">
+      <h1>About me</h1>
+      <p>A bit about who I am outside of code.</p>
+    </div>
+    <div class="prose">
+      <p>Edit this section in <code>index.html</code> — add your bio, interests, photos, or a timeline. This tab is intentionally left as a simple template so you can drop in your own story.</p>
+    </div>
+  </section>
+
+  <!-- ── OTHER ─────────────────────────────────────────────────── -->
+  <section id="other" class="tab-panel">
+    <div class="hero small">
+      <h1>Other</h1>
+      <p>Writing, experiments, links — anything that doesn't fit above.</p>
+    </div>
+    <div class="prose">
+      <p>Use this tab for blog posts, reading lists, side experiments, or contact info.</p>
+      <ul class="link-list">
+        <li><a href="https://github.com/HamzaaAzhar" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="mailto:hamza131997@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap footer">
+  <p>&copy; <span id="year"></span> Hamza Azhar</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
