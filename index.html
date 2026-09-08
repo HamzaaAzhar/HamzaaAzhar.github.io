@@ -354,25 +354,40 @@
   }
 
   /* ── Timeline ─────────────────────────────────────────────── */
+  .timeline-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+    margin: 44px 0 18px;
+  }
+
   .timeline {
     position: relative;
-    margin: 40px 0 4px;
-    padding-left: 78px;
+    margin: 0 0 4px;
+    padding-left: 32px;
   }
 
   .timeline::before {
     content: "";
     position: absolute;
-    left: 30px;
-    top: 6px;
-    bottom: 6px;
-    width: 1px;
-    background: var(--rule-strong);
+    left: 9px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(to bottom,
+      transparent,
+      var(--rule-strong) 8%,
+      var(--rule-strong) 92%,
+      transparent);
   }
 
   .tl-item {
     position: relative;
-    padding-bottom: 32px;
+    padding-bottom: 16px;
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 0.5s ease, transform 0.5s ease;
@@ -385,31 +400,45 @@
 
   .tl-item:last-child { padding-bottom: 0; }
 
-  .tl-item::before {
-    content: "";
+  .tl-marker {
     position: absolute;
-    left: -52px;
-    top: 4px;
-    width: 9px;
-    height: 9px;
+    left: -32px;
+    top: 22px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
+    background: var(--brass-deep);
+    box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--rule-strong);
+  }
+
+  .tl-card {
     background: var(--paper);
-    border: 2px solid var(--brass-deep);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 14px 18px 16px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .tl-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
   }
 
   .tl-year {
-    position: absolute;
-    left: -78px;
-    top: -2px;
-    width: 44px;
+    display: inline-block;
     font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
     color: var(--brass-deep);
-    text-align: right;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    padding: 2px 9px;
+    border-radius: 999px;
+    margin-bottom: 9px;
   }
 
-  .tl-content h5 {
+  .tl-card h5 {
     font-family: var(--serif);
     font-weight: 600;
     font-size: 16.5px;
@@ -417,7 +446,7 @@
     color: var(--ink);
   }
 
-  .tl-content p {
+  .tl-card p {
     font-size: 13.5px;
     line-height: 1.55;
     color: var(--ink-soft);
@@ -426,16 +455,9 @@
   }
 
   @media (max-width: 560px) {
-    .timeline { padding-left: 26px; }
-    .timeline::before { left: 4px; }
-    .tl-item::before { left: -22px; }
-    .tl-year {
-      position: static;
-      display: block;
-      text-align: left;
-      width: auto;
-      margin-bottom: 4px;
-    }
+    .timeline { padding-left: 24px; }
+    .timeline::before { left: 6px; }
+    .tl-marker { left: -24px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -682,52 +704,60 @@
       <p><span class="story-label">Outside of work</span>I play padel most weeks, competitively rather than casually, and I'm rarely far from a chess board — usually mid blitz-game at an hour I probably shouldn't be awake. The same instinct that wants to win a match also wants to take things apart: I build side projects, tinker with home systems, and enjoy poking at AI models and software just to see how far they bend. Given the choice, I'd rather show up with a working prototype than a strategy deck.</p>
     </div>
 
+    <span class="timeline-label">Timeline</span>
     <div class="timeline">
       <div class="tl-item">
-        <span class="tl-year">1997</span>
-        <div class="tl-content">
+        <div class="tl-marker"></div>
+        <div class="tl-card">
+          <span class="tl-year">1997</span>
           <h5>Born in Lahore</h5>
           <p>13 August — Lahore, Pakistan.</p>
         </div>
       </div>
       <div class="tl-item">
-        <span class="tl-year">2014</span>
-        <div class="tl-content">
+        <div class="tl-marker"></div>
+        <div class="tl-card">
+          <span class="tl-year">2014</span>
           <h5>Started mentoring</h5>
           <p>Volunteered with Next Generation Pakistan, supporting education initiatives for underprivileged children.</p>
         </div>
       </div>
       <div class="tl-item">
-        <span class="tl-year">2016</span>
-        <div class="tl-content">
+        <div class="tl-marker"></div>
+        <div class="tl-card">
+          <span class="tl-year">2016</span>
           <h5>Started at LUMS</h5>
           <p>Began a BSc (Hons) in Accounting &amp; Finance; went on to coach orientation week, represent my batch on the Student Council, and lead promotions for the Entrepreneurial Society.</p>
         </div>
       </div>
       <div class="tl-item">
-        <span class="tl-year">2018</span>
-        <div class="tl-content">
+        <div class="tl-marker"></div>
+        <div class="tl-card">
+          <span class="tl-year">2018</span>
           <h5>Joined PwC Pakistan</h5>
           <p>Started as an Associate Consultant in audit and advisory, while teaching Financial Accounting tutorials back at LUMS.</p>
         </div>
       </div>
       <div class="tl-item">
-        <span class="tl-year">2020</span>
-        <div class="tl-content">
+        <div class="tl-marker"></div>
+        <div class="tl-card">
+          <span class="tl-year">2020</span>
           <h5>Graduated LUMS</h5>
           <p>Finished my degree and continued full-time in audit and advisory at PwC.</p>
         </div>
       </div>
       <div class="tl-item">
-        <span class="tl-year">2023</span>
-        <div class="tl-content">
+        <div class="tl-marker"></div>
+        <div class="tl-card">
+          <span class="tl-year">2023</span>
           <h5>Joined SkyPack</h5>
           <p>Left PwC and stepped into my father's manufacturing business, rebuilding its operations and systems.</p>
         </div>
       </div>
       <div class="tl-item">
-        <span class="tl-year">2024</span>
-        <div class="tl-content">
+        <div class="tl-marker"></div>
+        <div class="tl-card">
+          <span class="tl-year">2024</span>
           <h5>Tader Store &amp; Uqab Corporation</h5>
           <p>Co-founded a footwear brand, then joined Uqab Corporation as Senior Analyst — Investments &amp; Strategy.</p>
         </div>
