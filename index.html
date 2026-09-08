@@ -9,56 +9,56 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #14151A;
-    --ink-soft: #565A66;
+    --ink: #141414;
+    --ink-soft: #57575C;
     --paper: #FFFFFF;
-    --paper-2: #F5F5F7;
-    --brass: #4F46E5;
-    --brass-deep: #3730A3;
-    --accent-2: #F5A623;
-    --slate: #6B7280;
-    --rule: rgba(20, 21, 26, 0.10);
-    --rule-strong: rgba(20, 21, 26, 0.22);
+    --paper-2: #F3F3F4;
+    --brass: #1A1A1D;
+    --brass-deep: #000000;
+    --accent-2: #9A9AA0;
+    --slate: #6E6E73;
+    --rule: rgba(20, 20, 20, 0.10);
+    --rule-strong: rgba(20, 20, 20, 0.22);
     --serif: "Fraunces", Georgia, "Times New Roman", serif;
     --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    --shadow-sm: 0 1px 2px rgba(20, 21, 26, 0.05), 0 1px 1px rgba(20, 21, 26, 0.04);
-    --shadow-md: 0 10px 30px rgba(20, 21, 26, 0.08), 0 2px 8px rgba(20, 21, 26, 0.05);
+    --shadow-sm: 0 1px 2px rgba(20, 20, 20, 0.05), 0 1px 1px rgba(20, 20, 20, 0.04);
+    --shadow-md: 0 10px 30px rgba(20, 20, 20, 0.08), 0 2px 8px rgba(20, 20, 20, 0.05);
     --card-bg: rgba(255, 255, 255, 0.86);
   }
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ink: #F2F2F5;
-      --ink-soft: #A6ABB8;
-      --paper: #0B0B0F;
-      --paper-2: #141419;
-      --brass: #818CF8;
-      --brass-deep: #A5B4FC;
-      --accent-2: #FBBF24;
-      --slate: #9CA3AF;
-      --rule: rgba(242, 242, 245, 0.12);
-      --rule-strong: rgba(242, 242, 245, 0.24);
+      --ink: #F5F5F6;
+      --ink-soft: #ABABB0;
+      --paper: #0A0A0B;
+      --paper-2: #151516;
+      --brass: #E8E8EA;
+      --brass-deep: #FFFFFF;
+      --accent-2: #7C7C82;
+      --slate: #9A9AA0;
+      --rule: rgba(245, 245, 246, 0.12);
+      --rule-strong: rgba(245, 245, 246, 0.24);
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.25);
       --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
-      --card-bg: rgba(20, 20, 25, 0.72);
+      --card-bg: rgba(18, 18, 19, 0.72);
     }
   }
 
   :root[data-theme="dark"] {
-    --ink: #F2F2F5;
-    --ink-soft: #A6ABB8;
-    --paper: #0B0B0F;
-    --paper-2: #141419;
-    --brass: #818CF8;
-    --brass-deep: #A5B4FC;
-    --accent-2: #FBBF24;
-    --slate: #9CA3AF;
-    --rule: rgba(242, 242, 245, 0.12);
-    --rule-strong: rgba(242, 242, 245, 0.24);
+    --ink: #F5F5F6;
+    --ink-soft: #ABABB0;
+    --paper: #0A0A0B;
+    --paper-2: #151516;
+    --brass: #E8E8EA;
+    --brass-deep: #FFFFFF;
+    --accent-2: #7C7C82;
+    --slate: #9A9AA0;
+    --rule: rgba(245, 245, 246, 0.12);
+    --rule-strong: rgba(245, 245, 246, 0.24);
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.25);
     --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
-    --card-bg: rgba(20, 20, 25, 0.72);
+    --card-bg: rgba(18, 18, 19, 0.72);
   }
 
   * { box-sizing: border-box; }
@@ -82,16 +82,34 @@
     pointer-events: none;
   }
 
+  .bg-decor .grid {
+    position: absolute;
+    inset: -2px;
+    background-image:
+      linear-gradient(var(--rule) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 90%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 90%);
+    animation: grid-drift 50s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes grid-drift {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 56px 84px, 56px 84px; }
+  }
+
   .bg-decor span {
     position: absolute;
     border-radius: 50%;
     filter: blur(70px);
-    opacity: 0.4;
+    opacity: 0.35;
   }
 
   :root:not([data-theme="light"]) .bg-decor span,
   :root[data-theme="dark"] .bg-decor span {
-    opacity: 0.28;
+    opacity: 0.22;
     mix-blend-mode: screen;
   }
 
@@ -127,7 +145,7 @@
     inset: -20% -60%;
     background: linear-gradient(115deg,
       transparent 38%,
-      rgba(255, 255, 255, 0.10) 48%,
+      rgba(20, 20, 20, 0.05) 48%,
       transparent 58%);
     animation: sweep 16s linear infinite;
   }
@@ -136,7 +154,7 @@
   :root[data-theme="dark"] .bg-decor .glare {
     background: linear-gradient(115deg,
       transparent 38%,
-      rgba(255, 255, 255, 0.06) 48%,
+      rgba(255, 255, 255, 0.07) 48%,
       transparent 58%);
   }
 
@@ -162,7 +180,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     .bg-decor span,
-    .bg-decor .glare { animation: none; }
+    .bg-decor .glare,
+    .bg-decor .grid { animation: none; }
   }
 
   .wrap {
@@ -520,7 +539,7 @@
 </style>
 </head>
 <body>
-<div class="bg-decor" aria-hidden="true"><span></span><span></span><span></span><div class="glare"></div></div>
+<div class="bg-decor" aria-hidden="true"><div class="grid"></div><span></span><span></span><span></span><div class="glare"></div></div>
 <div class="wrap">
 
   <header class="top">
