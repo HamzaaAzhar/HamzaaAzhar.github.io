@@ -71,21 +71,11 @@
 
   header.top {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: baseline;
     flex-wrap: wrap;
-    gap: 8px 24px;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--rule-strong);
-  }
-
-  .mark {
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: 16.5px;
-    letter-spacing: 0.01em;
-    color: var(--ink);
-    text-decoration: none;
   }
 
   nav.tabs {
@@ -453,7 +443,6 @@
 <div class="wrap">
 
   <header class="top">
-    <a class="mark" href="#" data-tab-link="personal">Mohammad Hamza Azhar</a>
     <nav class="tabs" role="tablist" aria-label="Site sections">
       <button role="tab" id="tab-btn-personal" aria-controls="tab-personal" aria-selected="true" data-tab="personal">Personal</button>
       <button role="tab" id="tab-btn-work" aria-controls="tab-work" aria-selected="false" data-tab="work">Work</button>
@@ -467,7 +456,7 @@
     <img class="portrait" src="assets/me.jpg" alt="Mohammad Hamza Azhar" width="96" height="96">
     <div>
       <h1>Mohammad Hamza Azhar</h1>
-      <p class="role">Investments &amp; strategy at a Pakistani industrial group, with a habit of building the software that operations actually need.</p>
+      <p class="role">Senior Analyst turning deal rooms and spreadsheets into working software — five years across audit, manufacturing operations, and strategic investment, now building the tools that finance work usually just talks about.</p>
       <p class="loc">LAHORE, PAKISTAN</p>
     </div>
   </div>
@@ -480,9 +469,10 @@
       <div class="block">
         <h4>Background</h4>
         <ul>
-          <li><b>BSc, Accounting &amp; Finance</b> — LUMS</li>
-          <li><b>CAF</b> — ICAP</li>
-          <li><b>Early career</b> — PwC Pakistan, 2018–2023</li>
+          <li><b>BSc, Accounting &amp; Finance</b> — LUMS, 2016–2020</li>
+          <li><b>CAF</b> — ICAP, 2020–2023</li>
+          <li><b>PwC Pakistan</b> — Associate Consultant, 2018–2023</li>
+          <li><b>Now</b> — Senior Analyst, Uqab Corporation</li>
         </ul>
       </div>
       <div class="block">
@@ -493,6 +483,16 @@
           <li>Ventures that outlast the spreadsheet</li>
         </ul>
       </div>
+    </div>
+
+    <div class="block" style="margin-top:20px;">
+      <h4>About me</h4>
+      <ul>
+        <li><b>Padel</b> — a standing weekly game, competitive by default</li>
+        <li><b>Chess</b> — mostly blitz, mostly against people I shouldn't play at 1am</li>
+        <li><b>Building</b> — side projects, home systems, whatever needs a tool that doesn't exist yet</li>
+        <li><b>Hacking</b> — poking at systems, tools, and AI models to see how far they bend</li>
+      </ul>
     </div>
 
     <div class="block" style="margin-top:20px;">
@@ -660,7 +660,6 @@
   (function () {
     var buttons = document.querySelectorAll('nav.tabs button[data-tab]');
     var panels = document.querySelectorAll('section.panel');
-    var markLink = document.querySelector('[data-tab-link]');
 
     function activate(tabId) {
       buttons.forEach(function (b) {
@@ -678,13 +677,6 @@
         activate(b.getAttribute('data-tab'));
       });
     });
-
-    if (markLink) {
-      markLink.addEventListener('click', function (e) {
-        e.preventDefault();
-        activate('personal');
-      });
-    }
 
     var initial = (location.hash || '').replace('#', '');
     var valid = ['personal', 'work', 'projects', 'contact'];
