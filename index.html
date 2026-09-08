@@ -66,7 +66,7 @@
   .wrap {
     max-width: 780px;
     margin: 0 auto;
-    padding: 56px 28px 100px;
+    padding: 36px 28px 64px;
   }
 
   header.top {
@@ -74,8 +74,8 @@
     justify-content: space-between;
     align-items: baseline;
     flex-wrap: wrap;
-    gap: 10px 24px;
-    padding-bottom: 22px;
+    gap: 8px 24px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--rule-strong);
   }
 
@@ -136,15 +136,15 @@
     position: relative;
     display: flex;
     align-items: flex-start;
-    gap: 26px;
-    padding: 44px 0 40px;
+    gap: 22px;
+    padding: 28px 0 26px;
     overflow: hidden;
   }
 
   .blob-field {
     position: absolute;
-    inset: -80px -60px auto -60px;
-    height: 340px;
+    inset: -50px -60px auto -60px;
+    height: 220px;
     z-index: 0;
     pointer-events: none;
     filter: blur(38px);
@@ -272,10 +272,10 @@
 
   .lede {
     font-family: var(--serif);
-    font-size: 21px;
-    line-height: 1.5;
+    font-size: 19px;
+    line-height: 1.45;
     max-width: 52ch;
-    margin: 0 0 40px;
+    margin: 0 0 22px;
     color: var(--ink);
   }
 
@@ -283,7 +283,7 @@
     display: grid;
     grid-template-columns: 88px 1fr;
     gap: 4px 24px;
-    padding: 22px 0;
+    padding: 16px 0;
     border-top: 1px solid var(--rule);
   }
 
@@ -335,6 +335,27 @@
 
   .entry .links a:hover { color: var(--brass-deep); }
 
+  .subprojects {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0 0 0 16px;
+    border-left: 2px solid var(--rule-strong);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .subprojects li {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .subprojects li b {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
   .media {
     margin: 14px 0 4px;
     border-radius: 10px;
@@ -353,8 +374,8 @@
   .grid2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    margin-top: 8px;
+    gap: 22px;
+    margin-top: 4px;
   }
 
   @media (max-width: 620px) {
@@ -411,8 +432,8 @@
   .contact-line a:hover { color: var(--brass-deep); }
 
   footer {
-    margin-top: 64px;
-    padding-top: 18px;
+    margin-top: 36px;
+    padding-top: 14px;
     border-top: 1px solid var(--rule);
     font-family: var(--mono);
     font-size: 11.5px;
@@ -461,7 +482,7 @@
         <ul>
           <li><b>BSc, Accounting &amp; Finance</b> — LUMS</li>
           <li><b>CAF</b> — ICAP</li>
-          <li><b>Early career</b> — A.F. Ferguson &amp; Co. (PwC)</li>
+          <li><b>Early career</b> — PwC Pakistan, 2018–2023</li>
         </ul>
       </div>
       <div class="block">
@@ -474,7 +495,7 @@
       </div>
     </div>
 
-    <div class="block" style="margin-top:32px;">
+    <div class="block" style="margin-top:20px;">
       <h4>How I work</h4>
       <ul>
         <li>Direct and concise — I'd rather show a working prototype than pitch a strategy deck</li>
@@ -486,40 +507,70 @@
 
   <!-- WORK -->
   <section class="panel" id="tab-work" role="tabpanel" aria-labelledby="tab-btn-work">
-    <p class="lede">Manager, Investments &amp; Strategy at Uqab Corporation — a diversified group spanning solar, packaging, agriculture, and more.</p>
+    <p class="lede">5+ years across consulting, manufacturing systems, e-commerce, and strategic project evaluation — currently at Uqab Corporation.</p>
 
     <div class="entry">
-      <div class="when">NOW</div>
+      <div class="when">NOV 2024–NOW</div>
       <div>
-        <h3>Uqab Corporation</h3>
-        <p>Manager, Investments &amp; Strategy. Work directly with the Chairman and Group CFO on deal structuring, financial modelling, and strategic initiatives across the group's sectors — including solar manufacturing, agriculture, and industrial packaging.</p>
-        <span class="tag">DEAL STRUCTURING · FINANCIAL MODELLING · IC PROCESS</span>
+        <h3>Senior Analyst — Uqab Corporation</h3>
+        <p>Work closely with the Chairman and group CEOs on project evaluation, feasibility studies, and business development across energy, agriculture, trading, and industrial ventures. Act as liaison for international partnerships, particularly with China, under the Belt &amp; Road Initiative.</p>
+        <span class="tag">FEASIBILITY STUDIES · FINANCIAL MODELLING · CHINA-PAKISTAN VENTURES</span>
+        <ul class="subprojects">
+          <li><b>Solar Panel Project (ongoing)</b> — built full financial models (P&amp;L, balance sheet, cash flow, CAPEX schedules); developed presentations for land procurement, Chinese partners, and government stakeholders; analysed JV terms and joined partner negotiations.</li>
+          <li><b>Industry &amp; trade feasibility studies</b> — captive power plants, copper mining (with and without smelter), electric tractors, and electric bikes in Pakistan.</li>
+          <li><b>Agri-commodity exports</b> — chicken feet, chilli peppers, sesame seeds, pine nuts, and Pakistani peanuts: product specs, local costing, global demand mapping, and investor pricing models.</li>
+          <li><b>Confidential healthcare study</b> — Nuclear Medical &amp; Health Industry Park feasibility.</li>
+        </ul>
       </div>
     </div>
 
     <div class="entry">
-      <div class="when">DEAL</div>
+      <div class="when">SEP 2023–NOV 2024</div>
       <div>
-        <h3>Solar manufacturing JV</h3>
-        <p>Working a large-scale integrated solar cell and module manufacturing joint venture with international partners — spanning technical validation, regulatory compliance, cost modelling, and investment-committee correspondence from term sheet through to approval.</p>
-        <span class="tag">JOINT VENTURE · TECHNICAL DILIGENCE · IC PROCESS</span>
+        <h3>Operations &amp; Systems Lead — SkyPack</h3>
+        <p>Paper &amp; cardboard manufacturing. Ran a full market pricing and competitive-positioning analysis, then rebuilt the operational backbone around it.</p>
+        <span class="tag">SYSTEMS · OPERATIONS · MANUFACTURING</span>
+        <ul class="subprojects">
+          <li><b>Custom inventory management system</b> (MS Access + SQL) — user-specific access with segregation of duties, automated field validation, and reconciliation reports; delivered in 3 months and adopted across operations.</li>
+          <li><b>Marketing transformation</b> — launched an Instagram portfolio, built a client pipeline, and generated commission-based orders through direct outreach; recruited a dedicated marketing manager to scale physical sales.</li>
+        </ul>
       </div>
     </div>
 
     <div class="entry">
-      <div class="when">DEAL</div>
+      <div class="when">MAY 2024–NOW</div>
       <div>
-        <h3>Agricultural REIT &amp; corporate farming JV</h3>
-        <p>Analysed a closed-end, SECP-regulated agricultural REIT structure end to end, stress-testing the transaction mechanics and flagging structural issues before they became costly. In parallel, modelled a corporate farming joint venture — equity splits, lease structure, and debt financing — with an international agribusiness partner.</p>
-        <span class="tag">REIT STRUCTURING · JV MODELLING · RISK REVIEW</span>
+        <h3>Co-Founder — Tader Store</h3>
+        <p>A men's leather footwear D2C brand, launched with a partner from the ground up.</p>
+        <span class="tag">E-COMMERCE · SHOPIFY · D2C</span>
+        <ul class="subprojects">
+          <li><b>Shopify storefront &amp; catalogue</b> — designed and launched the online store end to end.</li>
+          <li><b>Supply &amp; growth</b> — ran stock procurement, supplier negotiations, quality control, and digital marketing campaigns that drove steady sales growth.</li>
+        </ul>
       </div>
     </div>
 
     <div class="entry">
-      <div class="when">EARLIER</div>
+      <div class="when">AUG 2018–AUG 2023</div>
       <div>
-        <h3>A.F. Ferguson &amp; Co. (PwC)</h3>
-        <p>Started out in professional services, building the technical foundation — audit, financial reporting, and structured analysis — that still shapes how I approach a deal today.</p>
+        <h3>Associate Consultant — PwC Pakistan</h3>
+        <p>Five years in audit and risk advisory across banking, industrial, healthcare, and government-scheme engagements.</p>
+        <span class="tag">AUDIT · RISK &amp; CONTROLS · IFRS/ISA</span>
+        <ul class="subprojects">
+          <li><b>Agri e-Credit Government Scheme</b> — consolidated questionnaires and ToRs, ran feedback and replacement analyses, prepared reconciliations and PFI cover letters.</li>
+          <li><b>MCB Bank</b> (branch audits) — walkthroughs and voucher testing across major account heads; authored a CSR report on compliance gaps.</li>
+          <li><b>Bank of Punjab</b> (COSO) — drafted risk control matrices, designed management training programmes, refined process flows.</li>
+          <li><b>Millat Tractors &amp; Fatima Memorial Hospital</b> — substantive audit procedures on creditors and long-term debt.</li>
+          <li><b>Berger Paints &amp; DHA Bahawalpur</b> — interim and analytical reviews.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="when">AUG 2018–JUN 2019</div>
+      <div>
+        <h3>Teaching Assistant — LUMS</h3>
+        <p>Conducted tutorials for Principles of Financial Accounting (60 students), ran revision sessions, and assisted in grading.</p>
       </div>
     </div>
   </section>
@@ -586,14 +637,6 @@
       </div>
     </div>
 
-    <div class="entry">
-      <div class="when">IN PROGRESS</div>
-      <div>
-        <h3>Marketing Intelligence App</h3>
-        <p>A B2B platform unifying Pakistan's fragmented marketing data into one place — Out of Home (billboards and DOOH), Content &amp; Influencer selection, and Traditional &amp; Broadcast (TV, radio, print, direct mail). Currently in the research and mapping phase.</p>
-        <span class="tag">B2B · MARKET RESEARCH · PAKISTAN</span>
-      </div>
-    </div>
   </section>
 
   <!-- CONTACT -->
