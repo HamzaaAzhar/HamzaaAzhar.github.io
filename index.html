@@ -353,6 +353,99 @@
     margin-bottom: 8px;
   }
 
+  /* ── Timeline ─────────────────────────────────────────────── */
+  .timeline {
+    position: relative;
+    margin: 40px 0 4px;
+    padding-left: 78px;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 30px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--rule-strong);
+  }
+
+  .tl-item {
+    position: relative;
+    padding-bottom: 32px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .tl-item.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .tl-item:last-child { padding-bottom: 0; }
+
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -52px;
+    top: 4px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--brass-deep);
+  }
+
+  .tl-year {
+    position: absolute;
+    left: -78px;
+    top: -2px;
+    width: 44px;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--brass-deep);
+    text-align: right;
+  }
+
+  .tl-content h5 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 16.5px;
+    margin: 0 0 5px;
+    color: var(--ink);
+  }
+
+  .tl-content p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 52ch;
+  }
+
+  @media (max-width: 560px) {
+    .timeline { padding-left: 26px; }
+    .timeline::before { left: 4px; }
+    .tl-item::before { left: -22px; }
+    .tl-year {
+      position: static;
+      display: block;
+      text-align: left;
+      width: auto;
+      margin-bottom: 4px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tl-item {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
   .entry {
     display: grid;
     grid-template-columns: 88px 1fr;
@@ -588,6 +681,58 @@
 
       <p><span class="story-label">Outside of work</span>I play padel most weeks, competitively rather than casually, and I'm rarely far from a chess board — usually mid blitz-game at an hour I probably shouldn't be awake. The same instinct that wants to win a match also wants to take things apart: I build side projects, tinker with home systems, and enjoy poking at AI models and software just to see how far they bend. Given the choice, I'd rather show up with a working prototype than a strategy deck.</p>
     </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-year">1997</span>
+        <div class="tl-content">
+          <h5>Born in Lahore</h5>
+          <p>13 August — Lahore, Pakistan.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">2014</span>
+        <div class="tl-content">
+          <h5>Started mentoring</h5>
+          <p>Volunteered with Next Generation Pakistan, supporting education initiatives for underprivileged children.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">2016</span>
+        <div class="tl-content">
+          <h5>Started at LUMS</h5>
+          <p>Began a BSc (Hons) in Accounting &amp; Finance; went on to coach orientation week, represent my batch on the Student Council, and lead promotions for the Entrepreneurial Society.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">2018</span>
+        <div class="tl-content">
+          <h5>Joined PwC Pakistan</h5>
+          <p>Started as an Associate Consultant in audit and advisory, while teaching Financial Accounting tutorials back at LUMS.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">2020</span>
+        <div class="tl-content">
+          <h5>Graduated LUMS, began CAF</h5>
+          <p>Finished my degree and started the Certificate in Accounting &amp; Finance with ICAP alongside my PwC work.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">2023</span>
+        <div class="tl-content">
+          <h5>Qualified CAF, joined SkyPack</h5>
+          <p>Completed my CAF and stepped into my father's manufacturing business, rebuilding its operations and systems.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">2024</span>
+        <div class="tl-content">
+          <h5>Tader Store &amp; Uqab Corporation</h5>
+          <p>Co-founded a footwear brand, then joined Uqab Corporation as Senior Analyst — Investments &amp; Strategy.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- WORK -->
@@ -768,6 +913,25 @@
     var valid = ['personal', 'work', 'projects', 'contact'];
     if (valid.indexOf(initial) !== -1) {
       activate(initial);
+    }
+
+    if ('IntersectionObserver' in window) {
+      var tlObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            tlObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
+
+      document.querySelectorAll('.tl-item').forEach(function (el) {
+        tlObserver.observe(el);
+      });
+    } else {
+      document.querySelectorAll('.tl-item').forEach(function (el) {
+        el.classList.add('in-view');
+      });
     }
   })();
 </script>
