@@ -30,6 +30,9 @@
     --ray-color: rgba(20, 20, 20, 0.05);
     --particle-dot: rgba(20, 20, 20, 0.4);
     --particle-line: 20, 20, 20;
+    --blob-a: #4F46E5;
+    --blob-b: #F59E0B;
+    --blob-c: #0EA5A5;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -52,6 +55,9 @@
       --ray-color: rgba(255, 255, 255, 0.12);
       --particle-dot: rgba(245, 245, 246, 0.55);
       --particle-line: 245, 245, 246;
+      --blob-a: #818CF8;
+      --blob-b: #FBBF24;
+      --blob-c: #2DD4BF;
     }
   }
 
@@ -74,6 +80,9 @@
     --ray-color: rgba(255, 255, 255, 0.12);
     --particle-dot: rgba(245, 245, 246, 0.55);
     --particle-line: 245, 245, 246;
+    --blob-a: #818CF8;
+    --blob-b: #FBBF24;
+    --blob-c: #2DD4BF;
   }
 
   * { box-sizing: border-box; }
@@ -156,6 +165,100 @@
   @keyframes rays-rotate {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+
+  /* Colour blobs: soft drifting orbs for contrast and life */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.32;
+    mix-blend-mode: normal;
+  }
+
+  :root:not([data-theme="light"]) .blob,
+  :root[data-theme="dark"] .blob {
+    opacity: 0.4;
+    mix-blend-mode: screen;
+  }
+
+  .blob-a {
+    width: 40vw;
+    height: 40vw;
+    left: -8vw;
+    top: 8vh;
+    background: var(--blob-a);
+    animation: blob-drift-a 26s ease-in-out infinite;
+  }
+
+  .blob-b {
+    width: 34vw;
+    height: 34vw;
+    right: 4vw;
+    bottom: -6vh;
+    background: var(--blob-b);
+    animation: blob-drift-b 32s ease-in-out infinite;
+  }
+
+  .blob-c {
+    width: 28vw;
+    height: 28vw;
+    left: 34vw;
+    top: 46vh;
+    background: var(--blob-c);
+    animation: blob-drift-c 24s ease-in-out infinite;
+  }
+
+  @keyframes blob-drift-a {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(6vw, 5vh) scale(1.12); }
+  }
+
+  @keyframes blob-drift-b {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-5vw, -6vh) scale(0.9); }
+  }
+
+  @keyframes blob-drift-c {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(4vw, -5vh) scale(1.08); }
+  }
+
+  /* Orbiting ring for extra motion */
+  .orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120vmax;
+    height: 120vmax;
+    margin: -60vmax 0 0 -60vmax;
+    border-radius: 50%;
+    border: 1px dashed var(--rule-strong);
+    opacity: 0.5;
+    animation: orbit-spin 200s linear infinite;
+  }
+
+  .orbit-ring::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    margin-left: -4px;
+    border-radius: 50%;
+    background: var(--blob-a);
+    box-shadow: 0 0 12px 2px var(--blob-a);
+  }
+
+  @keyframes orbit-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blob,
+    .orbit-ring { animation: none; }
   }
 
   #bg-particles {
@@ -270,8 +373,8 @@
     box-shadow: var(--shadow-sm);
     font-family: var(--serif);
     font-weight: 600;
-    font-size: 26px;
-    letter-spacing: 0.02em;
+    font-size: 21px;
+    letter-spacing: 0.01em;
     color: var(--ink);
   }
 
@@ -307,10 +410,16 @@
     font-family: var(--serif);
     font-style: italic;
     font-weight: 400;
-    font-size: 19px;
+    font-size: 16px;
     color: var(--slate);
     margin: 0 0 18px;
-    max-width: 46ch;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 700px) {
+    .hero .role { white-space: normal; overflow: visible; text-overflow: clip; }
   }
 
   .hero .loc {
@@ -351,62 +460,6 @@
 
   .lede a:hover { color: var(--brass-deep); }
 
-  /* ── Interests grid ───────────────────────────────────────── */
-  .interests-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-
-  .interest-card {
-    position: relative;
-    background: var(--paper);
-    border: 1px solid var(--rule);
-    border-radius: 16px;
-    padding: 22px 20px;
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
-  }
-
-  .interest-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-3px);
-    border-color: var(--rule-strong);
-  }
-
-  .interest-glyph {
-    display: block;
-    font-family: var(--serif);
-    font-size: 30px;
-    line-height: 1;
-    color: var(--brass-deep);
-    margin-bottom: 14px;
-    transition: transform 0.3s ease;
-  }
-
-  .interest-card:hover .interest-glyph {
-    transform: scale(1.15) rotate(-6deg);
-  }
-
-  .interest-card h4 {
-    font-family: var(--serif);
-    font-weight: 600;
-    font-size: 17px;
-    margin: 0 0 6px;
-    color: var(--ink);
-  }
-
-  .interest-card p {
-    font-size: 13.5px;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    margin: 0;
-  }
-
-  @media (max-width: 560px) {
-    .interests-grid { grid-template-columns: 1fr; }
-  }
 
   .entry {
     display: grid;
@@ -617,6 +670,10 @@
 <body>
 <div class="bg-decor" aria-hidden="true">
   <div class="grid"></div>
+  <div class="orbit-ring"></div>
+  <div class="blob blob-a"></div>
+  <div class="blob blob-b"></div>
+  <div class="blob blob-c"></div>
   <div class="sun-wrap"><div class="sun-core"></div><div class="sun-rays"></div></div>
 </div>
 <canvas id="bg-particles" aria-hidden="true"></canvas>
@@ -631,7 +688,7 @@
   </header>
 
   <div class="hero">
-    <div class="avatar-mark" aria-hidden="true"><span>MH</span></div>
+    <div class="avatar-mark" aria-hidden="true"><span>MHA</span></div>
     <div>
       <h1>Mohammad Hamza Azhar</h1>
       <p class="role">Structures deals by day. Builds the tools that make them easier by night.</p>
@@ -641,20 +698,7 @@
 
   <!-- ME -->
   <section class="panel active" id="tab-me" role="tabpanel" aria-labelledby="tab-btn-me">
-    <p class="lede">Things that probably shouldn't be taken apart but are anyway.</p>
-
-    <div class="interests-grid">
-      <div class="interest-card">
-        <span class="interest-glyph">⚙</span>
-        <h4>Building</h4>
-        <p>Side projects, home systems, whatever tool doesn't exist yet.</p>
-      </div>
-      <div class="interest-card">
-        <span class="interest-glyph">◆</span>
-        <h4>Hacking</h4>
-        <p>Poking at AI models and software to see how far they bend.</p>
-      </div>
-    </div>
+    <p class="lede">Professionally chaotic. Creatively unreasonable.</p>
   </section>
 
   <!-- AI PROJECTS -->
@@ -733,7 +777,7 @@
 
   <footer>
     <span>Mohammad Hamza Azhar, Lahore, Pakistan</span>
-    <span>Manager, Investments &amp; Global Ventures · Uqab Corporation</span>
+    <span>Professionally chaotic. Creatively unreasonable.</span>
   </footer>
 
 </div>
