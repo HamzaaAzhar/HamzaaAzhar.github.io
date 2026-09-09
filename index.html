@@ -87,6 +87,12 @@
 
   * { box-sizing: border-box; }
 
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
   body {
     margin: 0;
     background: var(--paper);
@@ -328,11 +334,11 @@
     transition: transform 0.25s ease;
   }
 
-  nav.tabs button[aria-selected="true"] {
+  nav.tabs button[aria-current="true"] {
     color: var(--ink);
   }
 
-  nav.tabs button[aria-selected="true"]::after {
+  nav.tabs button[aria-current="true"]::after {
     transform: scaleX(1);
   }
 
@@ -430,17 +436,31 @@
   }
 
   section.panel {
-    display: none;
-  }
-
-  section.panel.active {
     display: block;
-    animation: rise 0.4s ease both;
+    scroll-margin-top: 96px;
+    padding-top: 44px;
+    margin-top: 44px;
+    border-top: 1px solid var(--rule);
   }
 
-  @keyframes rise {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+  section.panel:first-of-type {
+    padding-top: 0;
+    margin-top: 0;
+    border-top: none;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brass-deep);
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 16px;
   }
 
   .lede {
@@ -662,9 +682,6 @@
     gap: 8px;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    section.panel.active { animation: none; }
-  }
 </style>
 </head>
 <body>
@@ -680,10 +697,10 @@
 <div class="wrap">
 
   <header class="top">
-    <nav class="tabs" role="tablist" aria-label="Site sections">
-      <button role="tab" id="tab-btn-me" aria-controls="tab-me" aria-selected="true" data-tab="me">Me</button>
-      <button role="tab" id="tab-btn-ai-projects" aria-controls="tab-ai-projects" aria-selected="false" data-tab="ai-projects">AI Projects</button>
-      <button role="tab" id="tab-btn-contact" aria-controls="tab-contact" aria-selected="false" data-tab="contact">Contact</button>
+    <nav class="tabs" aria-label="Page sections">
+      <button id="tab-btn-me" aria-current="true" data-tab="me">Me</button>
+      <button id="tab-btn-ai-projects" aria-current="false" data-tab="ai-projects">AI Projects</button>
+      <button id="tab-btn-contact" aria-current="false" data-tab="contact">Contact</button>
     </nav>
   </header>
 
@@ -697,12 +714,14 @@
   </div>
 
   <!-- ME -->
-  <section class="panel active" id="tab-me" role="tabpanel" aria-labelledby="tab-btn-me">
+  <section class="panel" id="tab-me" role="region" aria-labelledby="tab-btn-me">
+    <span class="section-label">Me</span>
     <p class="lede">Things that probably shouldn't be taken apart but are anyway.</p>
   </section>
 
   <!-- AI PROJECTS -->
-  <section class="panel" id="tab-ai-projects" role="tabpanel" aria-labelledby="tab-btn-ai-projects">
+  <section class="panel" id="tab-ai-projects" role="region" aria-labelledby="tab-btn-ai-projects">
+    <span class="section-label">AI Projects</span>
     <div class="entry">
       <div class="when">SKYPACK</div>
       <div>
@@ -764,7 +783,8 @@
   </section>
 
   <!-- CONTACT -->
-  <section class="panel" id="tab-contact" role="tabpanel" aria-labelledby="tab-btn-contact">
+  <section class="panel" id="tab-contact" role="region" aria-labelledby="tab-btn-contact">
+    <span class="section-label">Contact</span>
     <p class="lede">Open to conversations on finance, deal work, or anything at the intersection of operations and software.</p>
     <div class="contact-line">
       <a href="mailto:hamza_azhar@live.com">hamza_azhar@live.com</a>
@@ -785,29 +805,40 @@
 <script>
   (function () {
     var buttons = document.querySelectorAll('nav.tabs button[data-tab]');
-    var panels = document.querySelectorAll('section.panel');
+    var sections = document.querySelectorAll('section.panel');
 
-    function activate(tabId) {
+    function setCurrent(tabId) {
       buttons.forEach(function (b) {
-        var selected = b.getAttribute('data-tab') === tabId;
-        b.setAttribute('aria-selected', selected ? 'true' : 'false');
+        b.setAttribute('aria-current', b.getAttribute('data-tab') === tabId ? 'true' : 'false');
       });
-      panels.forEach(function (p) {
-        p.classList.toggle('active', p.id === 'tab-' + tabId);
-      });
-      try { history.replaceState(null, '', '#' + tabId); } catch (e) {}
     }
 
     buttons.forEach(function (b) {
       b.addEventListener('click', function () {
-        activate(b.getAttribute('data-tab'));
+        var tabId = b.getAttribute('data-tab');
+        var el = document.getElementById('tab-' + tabId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
+
+    if ('IntersectionObserver' in window) {
+      var spy = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            setCurrent(entry.target.id.replace('tab-', ''));
+            try { history.replaceState(null, '', '#' + entry.target.id.replace('tab-', '')); } catch (e) {}
+          }
+        });
+      }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+
+      sections.forEach(function (s) { spy.observe(s); });
+    }
 
     var initial = (location.hash || '').replace('#', '');
     var valid = ['me', 'ai-projects', 'contact'];
     if (valid.indexOf(initial) !== -1) {
-      activate(initial);
+      var el = document.getElementById('tab-' + initial);
+      if (el) setTimeout(function () { el.scrollIntoView({ block: 'start' }); }, 30);
     }
   })();
 </script>
