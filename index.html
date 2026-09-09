@@ -25,6 +25,11 @@
     --shadow-sm: 0 1px 2px rgba(20, 20, 20, 0.05), 0 1px 1px rgba(20, 20, 20, 0.04);
     --shadow-md: 0 10px 30px rgba(20, 20, 20, 0.08), 0 2px 8px rgba(20, 20, 20, 0.05);
     --card-bg: rgba(255, 255, 255, 0.86);
+    --sun-color: rgba(20, 20, 20, 0.10);
+    --sun-color-mid: rgba(20, 20, 20, 0.04);
+    --ray-color: rgba(20, 20, 20, 0.05);
+    --particle-dot: rgba(20, 20, 20, 0.4);
+    --particle-line: 20, 20, 20;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -42,6 +47,11 @@
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.25);
       --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
       --card-bg: rgba(18, 18, 19, 0.72);
+      --sun-color: rgba(255, 255, 255, 0.85);
+      --sun-color-mid: rgba(255, 255, 255, 0.22);
+      --ray-color: rgba(255, 255, 255, 0.12);
+      --particle-dot: rgba(245, 245, 246, 0.55);
+      --particle-line: 245, 245, 246;
     }
   }
 
@@ -59,6 +69,11 @@
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.25);
     --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
     --card-bg: rgba(18, 18, 19, 0.72);
+    --sun-color: rgba(255, 255, 255, 0.85);
+    --sun-color-mid: rgba(255, 255, 255, 0.22);
+    --ray-color: rgba(255, 255, 255, 0.12);
+    --particle-dot: rgba(245, 245, 246, 0.55);
+    --particle-line: 245, 245, 246;
   }
 
   * { box-sizing: border-box; }
@@ -92,7 +107,7 @@
     -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 90%);
     mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 90%);
     animation: grid-drift 50s linear infinite;
-    opacity: 0.7;
+    opacity: 0.6;
   }
 
   @keyframes grid-drift {
@@ -100,88 +115,60 @@
     100% { background-position: 56px 84px, 56px 84px; }
   }
 
-  .bg-decor span {
+  /* Sun: soft glowing source in the corner with slowly rotating rays */
+  .sun-wrap {
     position: absolute;
+    top: -22vw;
+    right: -18vw;
+    width: 74vw;
+    height: 74vw;
+  }
+
+  .sun-core {
+    position: absolute;
+    inset: 0;
     border-radius: 50%;
-    filter: blur(70px);
-    opacity: 0.35;
+    background: radial-gradient(circle,
+      var(--sun-color) 0%,
+      var(--sun-color-mid) 32%,
+      transparent 68%);
+    filter: blur(28px);
+    animation: sun-breathe 9s ease-in-out infinite;
   }
 
-  :root:not([data-theme="light"]) .bg-decor span,
-  :root[data-theme="dark"] .bg-decor span {
-    opacity: 0.22;
-    mix-blend-mode: screen;
-  }
-
-  .bg-decor span:nth-child(1) {
-    width: 46vw;
-    height: 46vw;
-    left: -10vw;
-    top: -14vw;
-    background: var(--brass);
-    animation: drift-a 34s ease-in-out infinite;
-  }
-
-  .bg-decor span:nth-child(2) {
-    width: 38vw;
-    height: 38vw;
-    right: -8vw;
-    top: 18vh;
-    background: var(--accent-2);
-    animation: drift-b 40s ease-in-out infinite;
-  }
-
-  .bg-decor span:nth-child(3) {
-    width: 42vw;
-    height: 42vw;
-    left: 20vw;
-    bottom: -18vw;
-    background: var(--brass-deep);
-    animation: drift-c 30s ease-in-out infinite;
-  }
-
-  .bg-decor .glare {
+  .sun-rays {
     position: absolute;
-    inset: -20% -60%;
-    background: linear-gradient(115deg,
-      transparent 38%,
-      rgba(20, 20, 20, 0.05) 48%,
-      transparent 58%);
-    animation: sweep 16s linear infinite;
+    inset: -10%;
+    border-radius: 50%;
+    background: repeating-conic-gradient(from 0deg,
+      var(--ray-color) 0deg 1.2deg,
+      transparent 1.2deg 16deg);
+    -webkit-mask-image: radial-gradient(circle, #000 0%, #000 38%, transparent 72%);
+    mask-image: radial-gradient(circle, #000 0%, #000 38%, transparent 72%);
+    animation: rays-rotate 120s linear infinite;
   }
 
-  :root:not([data-theme="light"]) .bg-decor .glare,
-  :root[data-theme="dark"] .bg-decor .glare {
-    background: linear-gradient(115deg,
-      transparent 38%,
-      rgba(255, 255, 255, 0.07) 48%,
-      transparent 58%);
+  @keyframes sun-breathe {
+    0%, 100% { opacity: 0.75; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.06); }
   }
 
-  @keyframes drift-a {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(6vw, 8vh) scale(1.1); }
+  @keyframes rays-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
-  @keyframes drift-b {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-7vw, 6vh) scale(0.92); }
-  }
-
-  @keyframes drift-c {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(5vw, -6vh) scale(1.06); }
-  }
-
-  @keyframes sweep {
-    0% { transform: translateX(-30%); }
-    100% { transform: translateX(30%); }
+  #bg-particles {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .bg-decor span,
-    .bg-decor .glare,
-    .bg-decor .grid { animation: none; }
+    .bg-decor .grid,
+    .sun-core,
+    .sun-rays { animation: none; }
   }
 
   .wrap {
@@ -267,20 +254,44 @@
     box-shadow: var(--shadow-md);
   }
 
-  .portrait {
+  .avatar-mark {
+    position: relative;
     width: 92px;
     height: 92px;
-    border-radius: 50%;
-    object-fit: cover;
     flex-shrink: 0;
-    border: 2px solid var(--paper);
-    box-shadow: 0 0 0 1px var(--rule-strong), var(--shadow-sm);
-    filter: grayscale(0.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: repeating-conic-gradient(from 0deg,
+      var(--paper-2) 0deg 30deg,
+      var(--paper) 30deg 60deg);
+    border: 1px solid var(--rule-strong);
+    box-shadow: var(--shadow-sm);
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+
+  .avatar-mark::before {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+  }
+
+  .avatar-mark span {
+    position: relative;
+    z-index: 1;
   }
 
   @media (max-width: 560px) {
     .hero { gap: 16px; padding: 18px; }
-    .portrait { width: 64px; height: 64px; }
+    .avatar-mark { width: 64px; height: 64px; font-size: 18px; }
   }
 
   .hero h1 {
@@ -604,19 +615,23 @@
 </style>
 </head>
 <body>
-<div class="bg-decor" aria-hidden="true"><div class="grid"></div><span></span><span></span><span></span><div class="glare"></div></div>
+<div class="bg-decor" aria-hidden="true">
+  <div class="grid"></div>
+  <div class="sun-wrap"><div class="sun-core"></div><div class="sun-rays"></div></div>
+</div>
+<canvas id="bg-particles" aria-hidden="true"></canvas>
 <div class="wrap">
 
   <header class="top">
     <nav class="tabs" role="tablist" aria-label="Site sections">
-      <button role="tab" id="tab-btn-personal" aria-controls="tab-personal" aria-selected="true" data-tab="personal">Me</button>
-      <button role="tab" id="tab-btn-projects" aria-controls="tab-projects" aria-selected="false" data-tab="projects">AI Projects</button>
+      <button role="tab" id="tab-btn-me" aria-controls="tab-me" aria-selected="true" data-tab="me">Me</button>
+      <button role="tab" id="tab-btn-ai-projects" aria-controls="tab-ai-projects" aria-selected="false" data-tab="ai-projects">AI Projects</button>
       <button role="tab" id="tab-btn-contact" aria-controls="tab-contact" aria-selected="false" data-tab="contact">Contact</button>
     </nav>
   </header>
 
   <div class="hero">
-    <img class="portrait" src="assets/me.jpg" alt="Mohammad Hamza Azhar" width="96" height="96">
+    <div class="avatar-mark" aria-hidden="true"><span>MH</span></div>
     <div>
       <h1>Mohammad Hamza Azhar</h1>
       <p class="role">Structures deals by day. Builds the tools that make them easier by night.</p>
@@ -624,8 +639,8 @@
     </div>
   </div>
 
-  <!-- PERSONAL -->
-  <section class="panel active" id="tab-personal" role="tabpanel" aria-labelledby="tab-btn-personal">
+  <!-- ME -->
+  <section class="panel active" id="tab-me" role="tabpanel" aria-labelledby="tab-btn-me">
     <p class="lede">Things that probably shouldn't be taken apart but are anyway.</p>
 
     <div class="interests-grid">
@@ -642,10 +657,8 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section class="panel" id="tab-projects" role="tabpanel" aria-labelledby="tab-btn-projects">
-    <p class="lede">5+ years across consulting, manufacturing systems, and strategic investment, currently Manager, Investments &amp; Global Ventures at Uqab Corporation and co-founder of <a href="https://taderstore.com" target="_blank" rel="noopener">Tader Store</a>. The projects below are what happens after hours, usually FastAPI or Flask on the back end, React or a lean server-rendered front end, and Claude as a build partner throughout.</p>
-
+  <!-- AI PROJECTS -->
+  <section class="panel" id="tab-ai-projects" role="tabpanel" aria-labelledby="tab-btn-ai-projects">
     <div class="entry">
       <div class="when">SKYPACK</div>
       <div>
@@ -714,6 +727,7 @@
       <a href="mailto:hamza131997@gmail.com">hamza131997@gmail.com</a>
       <a href="https://github.com/HamzaaAzhar" target="_blank" rel="noopener">GitHub</a>
       <a href="https://linkedin.com/in/HamzaaAzhar" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://taderstore.com" target="_blank" rel="noopener">Tader Store</a>
     </div>
   </section>
 
@@ -747,10 +761,110 @@
     });
 
     var initial = (location.hash || '').replace('#', '');
-    var valid = ['personal', 'projects', 'contact'];
+    var valid = ['me', 'ai-projects', 'contact'];
     if (valid.indexOf(initial) !== -1) {
       activate(initial);
     }
+  })();
+</script>
+
+<script>
+  (function () {
+    var canvas = document.getElementById('bg-particles');
+    if (!canvas || !canvas.getContext) return;
+    var ctx = canvas.getContext('2d');
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var DPR = Math.min(window.devicePixelRatio || 1, 2);
+    var W, H, particles;
+    var COUNT = 42;
+    var LINK_DIST = 130;
+
+    function resize() {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W * DPR;
+      canvas.height = H * DPR;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+
+    function init() {
+      particles = [];
+      for (var i = 0; i < COUNT; i++) {
+        particles.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22
+        });
+      }
+    }
+
+    function lineRGB() {
+      var v = getComputedStyle(document.documentElement).getPropertyValue('--particle-line').trim();
+      return v || '20, 20, 20';
+    }
+
+    function dotColor() {
+      var v = getComputedStyle(document.documentElement).getPropertyValue('--particle-dot').trim();
+      return v || 'rgba(20, 20, 20, 0.4)';
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      var rgb = lineRGB();
+      var dc = dotColor();
+
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x <= 0 || p.x >= W) p.vx *= -1;
+        if (p.y <= 0 || p.y >= H) p.vy *= -1;
+        p.x = Math.max(0, Math.min(W, p.x));
+        p.y = Math.max(0, Math.min(H, p.y));
+      }
+
+      for (var i = 0; i < particles.length; i++) {
+        for (var j = i + 1; j < particles.length; j++) {
+          var a = particles[i], b = particles[j];
+          var dx = a.x - b.x, dy = a.y - b.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < LINK_DIST) {
+            var alpha = (1 - dist / LINK_DIST) * 0.16;
+            ctx.strokeStyle = 'rgba(' + rgb + ', ' + alpha + ')';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = dc;
+        ctx.fill();
+      }
+    }
+
+    function loop() {
+      draw();
+      if (!reduceMotion) requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('resize', function () {
+      resize();
+      init();
+    });
+
+    resize();
+    init();
+    loop();
   })();
 </script>
 </body>
