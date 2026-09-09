@@ -332,140 +332,69 @@
     color: var(--ink);
   }
 
-  .story p {
-    font-family: var(--serif);
-    font-size: 18px;
-    line-height: 1.65;
-    max-width: 62ch;
+  .lede a {
     color: var(--ink);
-    margin: 0 0 26px;
+    text-decoration-color: var(--brass-deep);
+    text-underline-offset: 3px;
   }
 
-  .story p:last-child { margin-bottom: 0; }
+  .lede a:hover { color: var(--brass-deep); }
 
-  .story-label {
-    display: block;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--brass-deep);
-    margin-bottom: 8px;
+  /* ── Interests grid ───────────────────────────────────────── */
+  .interests-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
   }
 
-  /* ── Timeline ─────────────────────────────────────────────── */
-  .timeline-label {
-    display: block;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--brass-deep);
-    margin: 44px 0 18px;
-  }
-
-  .timeline {
+  .interest-card {
     position: relative;
-    margin: 0 0 4px;
-    padding-left: 32px;
-  }
-
-  .timeline::before {
-    content: "";
-    position: absolute;
-    left: 9px;
-    top: 4px;
-    bottom: 4px;
-    width: 2px;
-    border-radius: 2px;
-    background: linear-gradient(to bottom,
-      transparent,
-      var(--rule-strong) 8%,
-      var(--rule-strong) 92%,
-      transparent);
-  }
-
-  .tl-item {
-    position: relative;
-    padding-bottom: 16px;
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-
-  .tl-item.in-view {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .tl-item:last-child { padding-bottom: 0; }
-
-  .tl-marker {
-    position: absolute;
-    left: -32px;
-    top: 22px;
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    background: var(--brass-deep);
-    box-shadow: 0 0 0 4px var(--paper), 0 0 0 5px var(--rule-strong);
-  }
-
-  .tl-card {
     background: var(--paper);
     border: 1px solid var(--rule);
-    border-radius: 12px;
-    padding: 14px 18px 16px;
+    border-radius: 16px;
+    padding: 22px 20px;
     box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    overflow: hidden;
+    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
   }
 
-  .tl-card:hover {
+  .interest-card:hover {
     box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
+    transform: translateY(-3px);
+    border-color: var(--rule-strong);
   }
 
-  .tl-year {
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 10.5px;
-    letter-spacing: 0.04em;
+  .interest-glyph {
+    display: block;
+    font-family: var(--serif);
+    font-size: 30px;
+    line-height: 1;
     color: var(--brass-deep);
-    background: var(--paper-2);
-    border: 1px solid var(--rule);
-    padding: 2px 9px;
-    border-radius: 999px;
-    margin-bottom: 9px;
+    margin-bottom: 14px;
+    transition: transform 0.3s ease;
   }
 
-  .tl-card h5 {
+  .interest-card:hover .interest-glyph {
+    transform: scale(1.15) rotate(-6deg);
+  }
+
+  .interest-card h4 {
     font-family: var(--serif);
     font-weight: 600;
-    font-size: 16.5px;
-    margin: 0 0 5px;
+    font-size: 17px;
+    margin: 0 0 6px;
     color: var(--ink);
   }
 
-  .tl-card p {
+  .interest-card p {
     font-size: 13.5px;
     line-height: 1.55;
     color: var(--ink-soft);
     margin: 0;
-    max-width: 52ch;
   }
 
   @media (max-width: 560px) {
-    .timeline { padding-left: 24px; }
-    .timeline::before { left: 6px; }
-    .tl-marker { left: -24px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .tl-item {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
+    .interests-grid { grid-template-columns: 1fr; }
   }
 
   .entry {
@@ -680,8 +609,7 @@
 
   <header class="top">
     <nav class="tabs" role="tablist" aria-label="Site sections">
-      <button role="tab" id="tab-btn-personal" aria-controls="tab-personal" aria-selected="true" data-tab="personal">Personal</button>
-      <button role="tab" id="tab-btn-work" aria-controls="tab-work" aria-selected="false" data-tab="work">Work</button>
+      <button role="tab" id="tab-btn-personal" aria-controls="tab-personal" aria-selected="true" data-tab="personal">Me</button>
       <button role="tab" id="tab-btn-projects" aria-controls="tab-projects" aria-selected="false" data-tab="projects">AI Projects</button>
       <button role="tab" id="tab-btn-contact" aria-controls="tab-contact" aria-selected="false" data-tab="contact">Contact</button>
     </nav>
@@ -698,144 +626,35 @@
 
   <!-- PERSONAL -->
   <section class="panel active" id="tab-personal" role="tabpanel" aria-labelledby="tab-btn-personal">
-    <div class="story">
-      <p><span class="story-label">Now</span>Manager, Investments &amp; Global Ventures at Uqab Corporation. Co-founder, Tader Store.</p>
-      <p><span class="story-label">Outside of work</span>Padel. Chess. Building things. Breaking AI models for fun.</p>
-    </div>
+    <p class="lede">Padel courts, chess boards, and things that probably shouldn't be taken apart but are anyway.</p>
 
-    <span class="timeline-label">Timeline</span>
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-marker"></div>
-        <div class="tl-card">
-          <span class="tl-year">2024–Present</span>
-          <h5>Manager, Investments &amp; Global Ventures, Uqab Corporation</h5>
-          <p>Promoted from Senior Analyst after one year. Also co-founded Tader Store.</p>
-        </div>
+    <div class="interests-grid">
+      <div class="interest-card">
+        <span class="interest-glyph">♟</span>
+        <h4>Chess</h4>
+        <p>Blitz, mostly at 1am, mostly against people who didn't ask for it.</p>
       </div>
-      <div class="tl-item">
-        <div class="tl-marker"></div>
-        <div class="tl-card">
-          <span class="tl-year">2023</span>
-          <h5>Joined SkyPack</h5>
-          <p>Took over operations and systems at the family's manufacturing business.</p>
-        </div>
+      <div class="interest-card">
+        <span class="interest-glyph">●</span>
+        <h4>Padel</h4>
+        <p>A standing weekly game. Competitive by default.</p>
       </div>
-      <div class="tl-item">
-        <div class="tl-marker"></div>
-        <div class="tl-card">
-          <span class="tl-year">2020–2023</span>
-          <h5>PwC Pakistan</h5>
-          <p>Three years in audit and advisory.</p>
-        </div>
+      <div class="interest-card">
+        <span class="interest-glyph">⚙</span>
+        <h4>Building</h4>
+        <p>Side projects, home systems, whatever tool doesn't exist yet.</p>
       </div>
-      <div class="tl-item">
-        <div class="tl-marker"></div>
-        <div class="tl-card">
-          <span class="tl-year">2016–2020</span>
-          <h5>BSc, LUMS</h5>
-          <p>Accounting &amp; Finance. Coached orientation week, sat on the Student Council, and led promotions for the Entrepreneurial Society.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-marker"></div>
-        <div class="tl-card">
-          <span class="tl-year">2014–2016</span>
-          <h5>Started mentoring</h5>
-          <p>Volunteered with Next Generation Pakistan, supporting education for underprivileged children.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-marker"></div>
-        <div class="tl-card">
-          <span class="tl-year">2011–2016</span>
-          <h5>O &amp; A Levels, LGS JT</h5>
-          <p>Lahore Grammar School, Johar Town.</p>
-        </div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-marker"></div>
-        <div class="tl-card">
-          <span class="tl-year">1997</span>
-          <h5>Born in Lahore</h5>
-          <p>13 August, Lahore, Pakistan.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORK -->
-  <section class="panel" id="tab-work" role="tabpanel" aria-labelledby="tab-btn-work">
-    <p class="lede">5+ years across consulting, manufacturing systems, e-commerce, and strategic project evaluation, currently at Uqab Corporation.</p>
-
-    <div class="entry">
-      <div class="when">NOV 2024–NOW</div>
-      <div>
-        <h3>Manager, Investments &amp; Global Ventures, Uqab Corporation</h3>
-        <p>Promoted from Senior Analyst after one year. Works closely with the Chairman and group CEOs on project evaluation, feasibility studies, and business development across energy, agriculture, trading, and industrial ventures. Liaises on international partnerships, particularly with China, under the Belt &amp; Road Initiative.</p>
-        <span class="tag">FEASIBILITY STUDIES · FINANCIAL MODELLING · CHINA-PAKISTAN VENTURES</span>
-        <ul class="subprojects">
-          <li><b>Solar Panel Project (ongoing):</b> full financial models (P&amp;L, balance sheet, cash flow, CAPEX schedules); presentations for land procurement, Chinese partners, and government stakeholders; JV term analysis and partner negotiations.</li>
-          <li><b>Industry &amp; trade feasibility studies:</b> captive power plants, copper mining (with and without smelter), electric tractors, and electric bikes in Pakistan.</li>
-          <li><b>Agri-commodity exports:</b> product specs, local costing, global demand mapping, and investor pricing models for chicken feet, chilli peppers, sesame seeds, pine nuts, and Pakistani peanuts.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="entry">
-      <div class="when">SEP 2023–NOV 2024</div>
-      <div>
-        <h3>Operations &amp; Systems Lead, SkyPack</h3>
-        <p>Paper &amp; cardboard manufacturing. Full market pricing and competitive-positioning analysis, followed by a rebuilt operational backbone.</p>
-        <span class="tag">SYSTEMS · OPERATIONS · MANUFACTURING</span>
-        <ul class="subprojects">
-          <li><b>Custom inventory management system</b> (MS Access + SQL): user-specific access with segregation of duties, automated field validation, and reconciliation reports; delivered in 3 months, adopted across operations.</li>
-          <li><b>Marketing transformation:</b> Instagram portfolio, client pipeline, and commission-based orders through direct outreach; recruited a dedicated marketing manager to scale physical sales.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="entry">
-      <div class="when">MAY 2024–NOW</div>
-      <div>
-        <h3>Co-Founder, Tader Store</h3>
-        <p>A men's leather footwear D2C brand, launched with a partner from the ground up.</p>
-        <span class="tag">E-COMMERCE · SHOPIFY · D2C</span>
-        <ul class="subprojects">
-          <li><b>Shopify storefront &amp; catalogue:</b> designed and launched the online store end to end.</li>
-          <li><b>Supply &amp; growth:</b> stock procurement, supplier negotiations, quality control, and digital marketing campaigns driving steady sales growth.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="entry">
-      <div class="when">2020–2023</div>
-      <div>
-        <h3>Associate Consultant, PwC Pakistan</h3>
-        <p>Three years in audit and risk advisory across banking, industrial, healthcare, and government-scheme engagements.</p>
-        <span class="tag">AUDIT · RISK &amp; CONTROLS · IFRS/ISA</span>
-        <ul class="subprojects">
-          <li><b>Agri e-Credit Government Scheme:</b> questionnaires and ToRs, feedback and replacement analyses, reconciliations and PFI cover letters.</li>
-          <li><b>MCB Bank</b> (branch audits): walkthroughs and voucher testing across major account heads; CSR report on compliance gaps.</li>
-          <li><b>Bank of Punjab</b> (COSO): risk control matrices, management training programmes, refined process flows.</li>
-          <li><b>Millat Tractors &amp; Fatima Memorial Hospital:</b> substantive audit procedures on creditors and long-term debt.</li>
-          <li><b>Berger Paints &amp; DHA Bahawalpur:</b> interim and analytical reviews.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="entry">
-      <div class="when">AUG 2018–JUN 2019</div>
-      <div>
-        <h3>Teaching Assistant, LUMS</h3>
-        <p>Tutorials for Principles of Financial Accounting (60 students), revision sessions, and grading.</p>
+      <div class="interest-card">
+        <span class="interest-glyph">◆</span>
+        <h4>Hacking</h4>
+        <p>Poking at AI models and software to see how far they bend.</p>
       </div>
     </div>
   </section>
 
   <!-- PROJECTS -->
   <section class="panel" id="tab-projects" role="tabpanel" aria-labelledby="tab-btn-projects">
-    <p class="lede">Software built to solve real problems, usually FastAPI or Flask on the back end, React or a lean server-rendered front end, and Claude as a build partner throughout.</p>
+    <p class="lede">5+ years across consulting, manufacturing systems, and strategic investment, currently Manager, Investments &amp; Global Ventures at Uqab Corporation and co-founder of <a href="https://taderstore.com" target="_blank" rel="noopener">Tader Store</a>. The projects below are what happens after hours, usually FastAPI or Flask on the back end, React or a lean server-rendered front end, and Claude as a build partner throughout.</p>
 
     <div class="entry">
       <div class="when">SKYPACK</div>
@@ -938,28 +757,9 @@
     });
 
     var initial = (location.hash || '').replace('#', '');
-    var valid = ['personal', 'work', 'projects', 'contact'];
+    var valid = ['personal', 'projects', 'contact'];
     if (valid.indexOf(initial) !== -1) {
       activate(initial);
-    }
-
-    if ('IntersectionObserver' in window) {
-      var tlObserver = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in-view');
-            tlObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
-
-      document.querySelectorAll('.tl-item').forEach(function (el) {
-        tlObserver.observe(el);
-      });
-    } else {
-      document.querySelectorAll('.tl-item').forEach(function (el) {
-        el.classList.add('in-view');
-      });
     }
   })();
 </script>
