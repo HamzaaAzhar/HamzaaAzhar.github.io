@@ -8,62 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+  /* Site always renders in the dark palette, regardless of system theme */
   :root {
-    --ink: #141414;
-    --ink-soft: #57575C;
-    --paper: #FFFFFF;
-    --paper-2: #F3F3F4;
-    --brass: #1A1A1D;
-    --brass-deep: #000000;
-    --accent-2: #9A9AA0;
-    --slate: #6E6E73;
-    --rule: rgba(20, 20, 20, 0.10);
-    --rule-strong: rgba(20, 20, 20, 0.22);
-    --serif: "Fraunces", Georgia, "Times New Roman", serif;
-    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    --shadow-sm: 0 1px 2px rgba(20, 20, 20, 0.05), 0 1px 1px rgba(20, 20, 20, 0.04);
-    --shadow-md: 0 10px 30px rgba(20, 20, 20, 0.08), 0 2px 8px rgba(20, 20, 20, 0.05);
-    --card-bg: rgba(255, 255, 255, 0.86);
-    --sun-color: rgba(20, 20, 20, 0.10);
-    --sun-color-mid: rgba(20, 20, 20, 0.04);
-    --ray-color: rgba(20, 20, 20, 0.05);
-    --particle-dot: rgba(20, 20, 20, 0.4);
-    --particle-line: 20, 20, 20;
-    --blob-a: #4F46E5;
-    --blob-b: #F59E0B;
-    --blob-c: #0EA5A5;
-    --blob-d: #E0479E;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --ink: #F5F5F6;
-      --ink-soft: #ABABB0;
-      --paper: #0A0A0B;
-      --paper-2: #151516;
-      --brass: #E8E8EA;
-      --brass-deep: #FFFFFF;
-      --accent-2: #7C7C82;
-      --slate: #9A9AA0;
-      --rule: rgba(245, 245, 246, 0.12);
-      --rule-strong: rgba(245, 245, 246, 0.24);
-      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.25);
-      --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
-      --card-bg: rgba(18, 18, 19, 0.72);
-      --sun-color: rgba(255, 255, 255, 0.85);
-      --sun-color-mid: rgba(255, 255, 255, 0.22);
-      --ray-color: rgba(255, 255, 255, 0.12);
-      --particle-dot: rgba(245, 245, 246, 0.55);
-      --particle-line: 245, 245, 246;
-      --blob-a: #818CF8;
-      --blob-b: #FBBF24;
-      --blob-c: #2DD4BF;
-      --blob-d: #F472B6;
-    }
-  }
-
-  :root[data-theme="dark"] {
     --ink: #F5F5F6;
     --ink-soft: #ABABB0;
     --paper: #0A0A0B;
@@ -74,6 +20,9 @@
     --slate: #9A9AA0;
     --rule: rgba(245, 245, 246, 0.12);
     --rule-strong: rgba(245, 245, 246, 0.24);
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(0, 0, 0, 0.25);
     --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
     --card-bg: rgba(18, 18, 19, 0.72);
@@ -86,7 +35,12 @@
     --blob-b: #FBBF24;
     --blob-c: #2DD4BF;
     --blob-d: #F472B6;
+    --chart-line-brass: rgba(232, 232, 234, 0.5);
+    --chart-line-dim: rgba(232, 232, 234, 0.2);
   }
+
+  /* Neutralise the browser's own light-mode form/scrollbar chrome so it matches */
+  html { color-scheme: dark; }
 
   * { box-sizing: border-box; }
 
@@ -182,12 +136,6 @@
     position: absolute;
     border-radius: 50%;
     filter: blur(72px);
-    opacity: 0.42;
-    mix-blend-mode: normal;
-  }
-
-  :root:not([data-theme="light"]) .blob,
-  :root[data-theme="dark"] .blob {
     opacity: 0.52;
     mix-blend-mode: screen;
   }
@@ -283,6 +231,35 @@
   @media (prefers-reduced-motion: reduce) {
     .blob,
     .orbit-ring { animation: none; }
+  }
+
+  /* Chart-line waves: faint market-data silhouettes drifting across the backdrop */
+  .chart-waves {
+    position: absolute;
+    left: 0;
+    bottom: 6vh;
+    width: 200%;
+    height: 34vh;
+    display: flex;
+    opacity: 0.55;
+  }
+
+  .chart-waves svg {
+    width: 50%;
+    height: 100%;
+    flex: none;
+  }
+
+  .chart-waves.w1 { animation: chart-drift 70s linear infinite; }
+  .chart-waves.w2 { bottom: 22vh; height: 26vh; opacity: 0.35; animation: chart-drift 95s linear infinite reverse; }
+
+  @keyframes chart-drift {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chart-waves { animation: none; }
   }
 
   #bg-particles {
@@ -635,6 +612,24 @@
 <body>
 <div class="bg-decor" aria-hidden="true">
   <div class="grid"></div>
+  <div class="chart-waves w1">
+    <svg viewBox="0 0 800 200" preserveAspectRatio="none">
+      <path d="M0,140 L40,120 L80,150 L120,90 L160,110 L200,60 L240,95 L280,50 L320,80 L360,40 L400,70 L440,30 L480,65 L520,45 L560,85 L600,55 L640,100 L680,70 L720,110 L760,80 L800,120" fill="none" stroke="var(--chart-line-brass)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+      <path d="M0,170 L50,160 L100,175 L150,150 L200,165 L250,140 L300,155 L350,120 L400,145 L450,110 L500,135 L550,100 L600,130 L650,105 L700,140 L750,115 L800,150" fill="none" stroke="var(--chart-line-dim)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+    </svg>
+    <svg viewBox="0 0 800 200" preserveAspectRatio="none">
+      <path d="M0,140 L40,120 L80,150 L120,90 L160,110 L200,60 L240,95 L280,50 L320,80 L360,40 L400,70 L440,30 L480,65 L520,45 L560,85 L600,55 L640,100 L680,70 L720,110 L760,80 L800,120" fill="none" stroke="var(--chart-line-brass)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+      <path d="M0,170 L50,160 L100,175 L150,150 L200,165 L250,140 L300,155 L350,120 L400,145 L450,110 L500,135 L550,100 L600,130 L650,105 L700,140 L750,115 L800,150" fill="none" stroke="var(--chart-line-dim)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+    </svg>
+  </div>
+  <div class="chart-waves w2">
+    <svg viewBox="0 0 800 200" preserveAspectRatio="none">
+      <path d="M0,60 L45,80 L90,50 L135,95 L180,65 L225,110 L270,75 L315,120 L360,85 L405,130 L450,95 L495,140 L540,100 L585,145 L630,110 L675,150 L720,115 L765,155 L800,125" fill="none" stroke="var(--chart-line-dim)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+    </svg>
+    <svg viewBox="0 0 800 200" preserveAspectRatio="none">
+      <path d="M0,60 L45,80 L90,50 L135,95 L180,65 L225,110 L270,75 L315,120 L360,85 L405,130 L450,95 L495,140 L540,100 L585,145 L630,110 L675,150 L720,115 L765,155 L800,125" fill="none" stroke="var(--chart-line-dim)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" />
+    </svg>
+  </div>
   <div class="orbit-ring"></div>
   <div class="blob blob-a"></div>
   <div class="blob blob-b"></div>
