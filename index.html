@@ -441,6 +441,12 @@
     padding-top: 3px;
   }
 
+  .entry-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
   .entry h3 {
     font-family: var(--serif);
     font-weight: 600;
@@ -521,7 +527,9 @@
 
   .media {
     margin: 8px 0 0;
-    max-width: 360px;
+    flex: 1;
+    min-height: 0;
+    display: flex;
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--rule);
@@ -533,7 +541,8 @@
   .media img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
   }
 
   @media (max-width: 620px) {
@@ -922,7 +931,7 @@
         <div class="carousel-track">
           <div class="entry">
             <div class="when">MANUFACTURER ERP</div>
-            <div>
+            <div class="entry-body">
               <h3>SkyPack ERP</h3>
               <p>A custom ERP, CRM, and accounting system architecture for SkyPack, built with PostgreSQL, FastAPI, and React, including specific-identification inventory tracking for paper reels.</p>
               <span class="tag">POSTGRESQL · FASTAPI · REACT</span>
@@ -936,7 +945,7 @@
 
           <div class="entry">
             <div class="when">FINTECH</div>
-            <div>
+            <div class="entry-body">
               <h3>InvestorLens</h3>
               <p>A live PSX stock &amp; gold market dashboard with Monte Carlo return projections and an AI portfolio assistant, built in Flask with a dark, Binance-inspired interface.</p>
               <span class="tag">FLASK · MARKET DATA · DASHBOARD</span>
@@ -954,7 +963,7 @@
 
           <div class="entry">
             <div class="when">DATA</div>
-            <div>
+            <div class="entry-body">
               <h3>Scraper Intelligence Engine</h3>
               <p>A cross-platform scraper that simultaneously fetches and normalises product data across Pakistan's top e-commerce marketplaces, surfacing pricing intelligence, supplier quality scores, brand dominance, and arbitrage opportunities in one pass.</p>
               <span class="tag">PYTHON · SCRAPING · AUTOMATION</span>
@@ -972,7 +981,7 @@
 
           <div class="entry">
             <div class="when">MEDIA</div>
-            <div>
+            <div class="entry-body">
               <h3>AI Verdict Media Engine</h3>
               <p>A local-first editorial production engine for faceless short-form news-reel video, running FastAPI on the back end and React with Vite on the front, built to keep the whole pipeline on one machine.</p>
               <span class="tag">FASTAPI · REACT/VITE · LOCAL-FIRST</span>
