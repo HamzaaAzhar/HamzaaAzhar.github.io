@@ -278,7 +278,7 @@
   .wrap {
     max-width: 780px;
     margin: 0 auto;
-    padding: 10px 12px 10px;
+    padding: 8px 12px 8px;
   }
 
   a:focus-visible {
@@ -374,8 +374,8 @@
   section.panel {
     display: block;
     scroll-margin-top: 96px;
-    padding-top: 8px;
-    margin-top: 8px;
+    padding-top: 6px;
+    margin-top: 6px;
     border-top: 1px solid var(--rule);
   }
 
@@ -395,6 +395,16 @@
     color: var(--ink);
   }
 
+  .lede-line {
+    max-width: none;
+    font-size: 14.5px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 700px) {
+    .lede-line { white-space: normal; }
+  }
+
   .lede a {
     color: var(--ink);
     text-decoration-color: var(--brass-deep);
@@ -408,7 +418,7 @@
     display: grid;
     grid-template-columns: 122px 1fr;
     gap: 4px 20px;
-    padding: 8px 12px;
+    padding: 6px 12px;
     margin-bottom: 0;
     background: var(--paper);
     border: 1px solid var(--rule);
@@ -511,21 +521,19 @@
 
   .media {
     margin: 8px 0 0;
+    max-width: 360px;
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--rule);
     background: var(--paper-2);
     box-shadow: var(--shadow-sm);
-    max-height: 17vh;
   }
 
   .media video,
   .media img {
     display: block;
     width: 100%;
-    height: 100%;
-    max-height: 17vh;
-    object-fit: cover;
+    height: auto;
   }
 
   @media (max-width: 620px) {
@@ -557,7 +565,7 @@
     align-items: center;
     justify-content: center;
     gap: 14px;
-    margin-top: 8px;
+    margin-top: 6px;
   }
 
   .carousel-arrow {
@@ -607,13 +615,6 @@
     transform: scale(1.3);
   }
 
-  .carousel-count {
-    font-family: var(--mono);
-    font-size: 11.5px;
-    color: var(--ink-soft);
-    min-width: 3ch;
-    text-align: center;
-  }
 
   .block {
     background: var(--paper);
@@ -680,8 +681,8 @@
   }
 
   footer {
-    margin-top: 8px;
-    padding-top: 8px;
+    margin-top: 6px;
+    padding-top: 6px;
     border-top: 1px solid var(--rule);
     font-family: var(--mono);
     font-size: 11.5px;
@@ -697,7 +698,7 @@
     background: var(--paper);
     border: 1px solid var(--rule);
     border-radius: 16px;
-    padding: 12px 16px;
+    padding: 10px 16px;
     box-shadow: var(--shadow-sm);
     text-align: left;
   }
@@ -986,7 +987,6 @@
 
       <div class="carousel-nav">
         <button type="button" class="carousel-arrow" id="carousel-prev" aria-label="Previous project">‹</button>
-        <span class="carousel-count" id="carousel-count">1 / 4</span>
         <div class="carousel-dots" id="carousel-dots">
           <button type="button" class="dot active" data-index="0" aria-label="Go to project 1"></button>
           <button type="button" class="dot" data-index="1" aria-label="Go to project 2"></button>
@@ -999,7 +999,7 @@
   </section>
 
   <section class="panel">
-    <p class="lede">Open to conversations on finance, deal work, or anything at the intersection of operations and software.</p>
+    <p class="lede lede-line">Open to conversations on finance, deal work, or anything at the intersection of operations and software.</p>
     <div class="contact-line">
       <a href="mailto:hamza_azhar@live.com">hamza_azhar@live.com</a>
       <a href="mailto:hamza131997@gmail.com">hamza131997@gmail.com</a>
@@ -1185,15 +1185,11 @@
     var prevBtn = document.getElementById('carousel-prev');
     var nextBtn = document.getElementById('carousel-next');
     var dots = Array.prototype.slice.call(root.querySelectorAll('.dot'));
-    var countEl = document.getElementById('carousel-count');
     var index = 0;
 
     function render() {
       track.style.transform = 'translateX(-' + (index * 100) + '%)';
       dots.forEach(function (dot, i) { dot.classList.toggle('active', i === index); });
-      countEl.textContent = (index + 1) + ' / ' + slides.length;
-      prevBtn.disabled = false;
-      nextBtn.disabled = false;
     }
 
     function goTo(i) {
