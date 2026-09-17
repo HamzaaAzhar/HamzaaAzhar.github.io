@@ -605,6 +605,123 @@
     gap: 8px;
   }
 
+  /* ── Workflow CTA ─────────────────────────────────────────── */
+  .cta-block {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+  }
+
+  .cta-block h2 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 26px;
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+
+  .cta-block p {
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0 auto 22px;
+  }
+
+  .cta-btn {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    letter-spacing: 0.02em;
+    color: var(--paper);
+    background: var(--brass-deep);
+    border: 1px solid var(--brass-deep);
+    border-radius: 10px;
+    padding: 12px 22px;
+    cursor: pointer;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+
+  .cta-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .workflow-form {
+    text-align: left;
+    max-width: 560px;
+    margin: 28px auto 0;
+    display: grid;
+    gap: 16px;
+  }
+
+  .workflow-form[hidden] { display: none; }
+
+  .workflow-form .field {
+    display: grid;
+    gap: 6px;
+  }
+
+  .workflow-form label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: var(--slate);
+  }
+
+  .workflow-form input,
+  .workflow-form textarea {
+    font-family: var(--sans);
+    font-size: 14.5px;
+    color: var(--ink);
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 10px 12px;
+    resize: vertical;
+  }
+
+  .workflow-form input:focus,
+  .workflow-form textarea:focus {
+    outline: none;
+    border-color: var(--brass);
+  }
+
+  .workflow-form textarea { min-height: 72px; }
+
+  .workflow-form .submit-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 4px;
+  }
+
+  .workflow-form .submit-row button {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--paper);
+    background: var(--brass-deep);
+    border: 1px solid var(--brass-deep);
+    border-radius: 10px;
+    padding: 11px 20px;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  .workflow-form .submit-row button:hover { opacity: 0.85; }
+
+  .workflow-form .submit-row button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .form-status {
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  .form-status.ok { color: #2DD4BF; }
+  .form-status.err { color: #F472B6; }
+
 </style>
 </head>
 <body>
@@ -717,6 +834,65 @@
       </div>
     </div>
 
+  </section>
+
+  <section class="panel">
+    <div class="cta-block">
+      <h2>Have a workflow worth automating?</h2>
+      <p>Describe how it currently works. I'll map the process and identify where AI, automation or a custom system could improve it.</p>
+      <button type="button" class="cta-btn" id="workflow-toggle">Submit a Workflow</button>
+
+      <form class="workflow-form" id="workflow-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" hidden>
+        <div class="field">
+          <label for="wf-company">Company / industry</label>
+          <input type="text" id="wf-company" name="company_industry" required>
+        </div>
+        <div class="field">
+          <label for="wf-name">Workflow name</label>
+          <input type="text" id="wf-name" name="workflow_name" required>
+        </div>
+        <div class="field">
+          <label for="wf-objective">Objective — what is this workflow meant to achieve?</label>
+          <textarea id="wf-objective" name="objective" required></textarea>
+        </div>
+        <div class="field">
+          <label for="wf-trigger">Trigger — what kicks it off?</label>
+          <input type="text" id="wf-trigger" name="trigger" required>
+        </div>
+        <div class="field">
+          <label for="wf-people">People involved / roles</label>
+          <input type="text" id="wf-people" name="people_involved" required>
+        </div>
+        <div class="field">
+          <label for="wf-steps">Step-by-step process</label>
+          <textarea id="wf-steps" name="step_by_step_process" style="min-height: 120px;" required></textarea>
+        </div>
+        <div class="field">
+          <label for="wf-tools">Software / tools currently used</label>
+          <input type="text" id="wf-tools" name="tools_used" required>
+        </div>
+        <div class="field">
+          <label for="wf-io">Inputs and outputs</label>
+          <textarea id="wf-io" name="inputs_outputs" required></textarea>
+        </div>
+        <div class="field">
+          <label for="wf-problems">Problems encountered</label>
+          <textarea id="wf-problems" name="problems_encountered" required></textarea>
+        </div>
+        <div class="field">
+          <label for="wf-frequency">Approximate frequency / volume</label>
+          <input type="text" id="wf-frequency" name="frequency_volume" placeholder="e.g. ~50 times/day" required>
+        </div>
+        <div class="field">
+          <label for="wf-email">Your email (so I can follow up)</label>
+          <input type="email" id="wf-email" name="email" required>
+        </div>
+        <div class="submit-row">
+          <button type="submit">Send it over</button>
+          <span class="form-status" id="wf-status"></span>
+        </div>
+      </form>
+    </div>
   </section>
 
   <section class="panel">
@@ -854,6 +1030,48 @@
       ty = (e.clientY / window.innerHeight - 0.5) * 26;
       decor.style.transform = 'translate(' + (-tx) + 'px, ' + (-ty) + 'px)';
     }, { passive: true });
+  })();
+
+  (function () {
+    var toggle = document.getElementById('workflow-toggle');
+    var form = document.getElementById('workflow-form');
+    var status = document.getElementById('wf-status');
+    if (!toggle || !form) return;
+
+    toggle.addEventListener('click', function () {
+      var opening = form.hidden;
+      form.hidden = !opening;
+      toggle.hidden = opening;
+      if (opening) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      status.textContent = 'Sending…';
+      status.className = 'form-status';
+
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function (res) {
+        if (res.ok) {
+          status.textContent = 'Sent — thanks, I\'ll follow up soon.';
+          status.className = 'form-status ok';
+          form.reset();
+        } else {
+          status.textContent = 'Something went wrong — try again or email me directly.';
+          status.className = 'form-status err';
+        }
+      }).catch(function () {
+        status.textContent = 'Something went wrong — try again or email me directly.';
+        status.className = 'form-status err';
+      }).finally(function () {
+        submitBtn.disabled = false;
+      });
+    });
   })();
 </script>
 </body>
