@@ -771,6 +771,65 @@
   </section>
 
   <section class="panel">
+    <div class="cta-block">
+      <h2>Have a workflow worth automating?</h2>
+      <p>Describe how it currently works. I'll map the process and identify where AI, automation or a custom system could improve it.</p>
+      <button type="button" class="cta-btn" id="workflow-toggle">Submit a Workflow</button>
+
+      <form class="workflow-form" id="workflow-form" action="https://formspree.io/f/moevqdjv" method="POST" hidden>
+        <div class="field">
+          <label for="wf-company">Company / industry</label>
+          <input type="text" id="wf-company" name="company_industry" required>
+        </div>
+        <div class="field">
+          <label for="wf-name">Workflow name</label>
+          <input type="text" id="wf-name" name="workflow_name" required>
+        </div>
+        <div class="field">
+          <label for="wf-objective">Objective — what is this workflow meant to achieve?</label>
+          <textarea id="wf-objective" name="objective" required></textarea>
+        </div>
+        <div class="field">
+          <label for="wf-trigger">Trigger — what kicks it off?</label>
+          <input type="text" id="wf-trigger" name="trigger" required>
+        </div>
+        <div class="field">
+          <label for="wf-people">People involved / roles</label>
+          <input type="text" id="wf-people" name="people_involved" required>
+        </div>
+        <div class="field">
+          <label for="wf-steps">Step-by-step process</label>
+          <textarea id="wf-steps" name="step_by_step_process" style="min-height: 120px;" required></textarea>
+        </div>
+        <div class="field">
+          <label for="wf-tools">Software / tools currently used</label>
+          <input type="text" id="wf-tools" name="tools_used" required>
+        </div>
+        <div class="field">
+          <label for="wf-io">Inputs and outputs</label>
+          <textarea id="wf-io" name="inputs_outputs" required></textarea>
+        </div>
+        <div class="field">
+          <label for="wf-problems">Problems encountered</label>
+          <textarea id="wf-problems" name="problems_encountered" required></textarea>
+        </div>
+        <div class="field">
+          <label for="wf-frequency">Approximate frequency / volume</label>
+          <input type="text" id="wf-frequency" name="frequency_volume" placeholder="e.g. ~50 times/day" required>
+        </div>
+        <div class="field">
+          <label for="wf-email">Your email (so I can follow up)</label>
+          <input type="email" id="wf-email" name="email" required>
+        </div>
+        <div class="submit-row">
+          <button type="submit">Send it over</button>
+          <span class="form-status" id="wf-status"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="panel">
     <div class="entry">
       <div class="when">MANUFACTURER ERP</div>
       <div>
@@ -834,65 +893,6 @@
       </div>
     </div>
 
-  </section>
-
-  <section class="panel">
-    <div class="cta-block">
-      <h2>Have a workflow worth automating?</h2>
-      <p>Describe how it currently works. I'll map the process and identify where AI, automation or a custom system could improve it.</p>
-      <button type="button" class="cta-btn" id="workflow-toggle">Submit a Workflow</button>
-
-      <form class="workflow-form" id="workflow-form" action="https://formspree.io/f/moevqdjv" method="POST" hidden>
-        <div class="field">
-          <label for="wf-company">Company / industry</label>
-          <input type="text" id="wf-company" name="company_industry" required>
-        </div>
-        <div class="field">
-          <label for="wf-name">Workflow name</label>
-          <input type="text" id="wf-name" name="workflow_name" required>
-        </div>
-        <div class="field">
-          <label for="wf-objective">Objective — what is this workflow meant to achieve?</label>
-          <textarea id="wf-objective" name="objective" required></textarea>
-        </div>
-        <div class="field">
-          <label for="wf-trigger">Trigger — what kicks it off?</label>
-          <input type="text" id="wf-trigger" name="trigger" required>
-        </div>
-        <div class="field">
-          <label for="wf-people">People involved / roles</label>
-          <input type="text" id="wf-people" name="people_involved" required>
-        </div>
-        <div class="field">
-          <label for="wf-steps">Step-by-step process</label>
-          <textarea id="wf-steps" name="step_by_step_process" style="min-height: 120px;" required></textarea>
-        </div>
-        <div class="field">
-          <label for="wf-tools">Software / tools currently used</label>
-          <input type="text" id="wf-tools" name="tools_used" required>
-        </div>
-        <div class="field">
-          <label for="wf-io">Inputs and outputs</label>
-          <textarea id="wf-io" name="inputs_outputs" required></textarea>
-        </div>
-        <div class="field">
-          <label for="wf-problems">Problems encountered</label>
-          <textarea id="wf-problems" name="problems_encountered" required></textarea>
-        </div>
-        <div class="field">
-          <label for="wf-frequency">Approximate frequency / volume</label>
-          <input type="text" id="wf-frequency" name="frequency_volume" placeholder="e.g. ~50 times/day" required>
-        </div>
-        <div class="field">
-          <label for="wf-email">Your email (so I can follow up)</label>
-          <input type="email" id="wf-email" name="email" required>
-        </div>
-        <div class="submit-row">
-          <button type="submit">Send it over</button>
-          <span class="form-status" id="wf-status"></span>
-        </div>
-      </form>
-    </div>
   </section>
 
   <section class="panel">
